@@ -8,7 +8,13 @@
 import UIKit
 
 class ImagesListCell: UITableViewCell {
+    
+    @IBOutlet var likeButton: UIButton!
+    @IBOutlet var dataLabel: UILabel!
+    @IBOutlet var cellImage: UIImageView!
 
     static let reuseIdentifier = "ImagesListCell"
+
+
 
 }
