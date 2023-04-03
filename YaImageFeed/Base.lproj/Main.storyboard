@@ -40,7 +40,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6Q-XV-2xw" userLabel="Like Button">
                                                     <rect key="frame" x="314.33333333333331" y="19" width="58.666666666666686" height="40"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="Favorites" title=" "/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="FavoritesActive" title=" "/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flT-Bj-ztV" userLabel="Data Label">
                                                     <rect key="frame" x="28" y="151" width="135" height="21"/>
@@ -97,7 +97,7 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="Favorites" width="30" height="26"/>
+        <image name="FavoritesActive" width="30" height="26"/>
         <namedColor name="YPBlack">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
