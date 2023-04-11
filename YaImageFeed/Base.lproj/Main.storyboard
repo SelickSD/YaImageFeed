@@ -89,7 +89,6 @@
                                             <outlet property="cellImage" destination="ZtI-MO-YV2" id="AP0-TJ-a3k"/>
                                             <outlet property="dataLabel" destination="flT-Bj-ztV" id="jkl-bD-PWK"/>
                                             <outlet property="likeButton" destination="A6Q-XV-2xw" id="Gvd-Gx-enx"/>
-                                            <segue destination="wfv-3k-rIJ" kind="show" id="cpl-gS-Sbc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -111,6 +110,7 @@
                     <navigationItem key="navigationItem" id="qmv-gt-72j"/>
                     <connections>
                         <outlet property="tableView" destination="1Ou-UT-y6w" id="mNK-vu-U7k"/>
+                        <segue destination="wfv-3k-rIJ" kind="show" identifier="ShowSingleImage" id="O0B-aO-Kc6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -239,7 +239,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="02K-b5-bgZ">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="YPWhite"/>
                         <color key="barTintColor" name="YPWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="YPWhite"/>
+                        </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" name="YPWhite"/>
                         </textAttributes>
