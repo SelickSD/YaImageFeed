@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qEO-IS-Ikm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="18w-y2-Xvf">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -10,6 +10,26 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="ZTB-1c-puR">
+            <objects>
+                <tabBarController id="18w-y2-Xvf" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MxD-ox-Z5q">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="YPBlack"/>
+                        <color key="barTintColor" name="YPBlack"/>
+                        <color key="selectedImageTintColor" name="YPWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Sov-Jq-U2T"/>
+                        <segue destination="qEO-IS-Ikm" kind="relationship" relationship="viewControllers" id="1ou-E2-TCO"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WRH-pP-Zhh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1036" y="4"/>
+        </scene>
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -87,13 +107,14 @@
                             <constraint firstItem="1Ou-UT-y6w" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="kVC-6q-eJn"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="AgX-cm-j4f"/>
                     <connections>
                         <outlet property="tableView" destination="1Ou-UT-y6w" id="mNK-vu-U7k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="96.946564885496173" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="45" y="-397"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="qYe-dv-Mry">
@@ -164,6 +185,7 @@
                             <constraint firstItem="M6x-Nt-aev" firstAttribute="leading" secondItem="9Tj-yB-lr3" secondAttribute="leading" constant="16" id="zq1-Do-ggR"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="Uxg-KO-pGB"/>
                     <connections>
                         <outlet property="exitButton" destination="ez8-rf-p3l" id="wj8-eO-RHy"/>
                         <outlet property="loginLabel" destination="3Ak-NE-gV2" id="2d6-lh-Udg"/>
@@ -174,7 +196,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zvU-Y1-FPn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1092" y="4"/>
+            <point key="canvasLocation" x="44" y="296"/>
         </scene>
     </scenes>
     <resources>
@@ -182,11 +204,13 @@
         <image name="FavoritesActive" width="30" height="26"/>
         <image name="PersonCircle" width="70" height="70"/>
         <image name="ipad.and.arrow.forward" catalog="system" width="113" height="128"/>
+        <image name="tab_editorial_active" width="30" height="30"/>
+        <image name="tab_profile_active" width="30" height="30"/>
         <namedColor name="YPBlack">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="YPGray">
-            <color red="0.68235294117647061" green="0.68627450980392157" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68199998140335083" green="0.68599998950958252" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="YPRed">
             <color red="0.96078431372549022" green="0.41960784313725491" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
