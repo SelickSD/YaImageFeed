@@ -89,6 +89,7 @@
                                             <outlet property="cellImage" destination="ZtI-MO-YV2" id="AP0-TJ-a3k"/>
                                             <outlet property="dataLabel" destination="flT-Bj-ztV" id="jkl-bD-PWK"/>
                                             <outlet property="likeButton" destination="A6Q-XV-2xw" id="Gvd-Gx-enx"/>
+                                            <segue destination="wfv-3k-rIJ" kind="show" id="cpl-gS-Sbc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -197,6 +198,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zvU-Y1-FPn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="44" y="296"/>
+        </scene>
+        <!--Single Image View Controller-->
+        <scene sceneID="G9y-wp-faG">
+            <objects>
+                <viewController id="wfv-3k-rIJ" customClass="SingleImageViewController" customModule="YaImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0b5-hu-RKn">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="lWk-uh-eRo">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" name="YPBlack"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tpD-59-Mf6"/>
+                        <color key="backgroundColor" name="YPBlack"/>
+                        <constraints>
+                            <constraint firstItem="tpD-59-Mf6" firstAttribute="trailing" secondItem="lWk-uh-eRo" secondAttribute="trailing" id="5Ua-db-2wg"/>
+                            <constraint firstItem="tpD-59-Mf6" firstAttribute="bottom" secondItem="lWk-uh-eRo" secondAttribute="bottom" id="fhM-Ut-Tfo"/>
+                            <constraint firstItem="lWk-uh-eRo" firstAttribute="leading" secondItem="tpD-59-Mf6" secondAttribute="leading" id="hdq-HQ-3uA"/>
+                            <constraint firstItem="lWk-uh-eRo" firstAttribute="top" secondItem="tpD-59-Mf6" secondAttribute="top" id="n4s-au-rID"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Zkf-ZY-hqb"/>
+                    <connections>
+                        <outlet property="imageView" destination="lWk-uh-eRo" id="7cu-B5-9gc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l7b-zV-kw0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1761" y="-397"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qxf-Xd-A03">
