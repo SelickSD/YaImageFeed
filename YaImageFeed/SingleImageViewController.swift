@@ -8,7 +8,8 @@
 import UIKit
 
 class SingleImageViewController: UIViewController {
-
+    @IBOutlet var backwardButton: UIButton!
+    
     var image: UIImage! {
         didSet {
             guard isViewLoaded else { return }
@@ -24,5 +25,8 @@ class SingleImageViewController: UIViewController {
         imageView.image = image
 
     }
-
+    @IBAction func didTapBackwardButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
