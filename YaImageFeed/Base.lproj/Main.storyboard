@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -64,8 +63,8 @@
                                                     <buttonConfiguration key="configuration" style="plain" image="FavoritesActive" title=" "/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flT-Bj-ztV" userLabel="Data Label">
-                                                    <rect key="frame" x="28" y="151" width="135" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <rect key="frame" x="28" y="151" width="134" height="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -206,76 +205,10 @@
                     <view key="view" contentMode="scaleToFill" id="u6v-OF-dpF">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PersonCircle" translatesAutoresizingMaskIntoConstraints="NO" id="AW5-9n-QMT" userLabel="Profile Image">
-                                <rect key="frame" x="16" y="76" width="70" height="70"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="D4G-kn-Fbn"/>
-                                    <constraint firstAttribute="width" constant="70" id="EZO-hb-Yga"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="35"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Екатерина Новикова" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M6x-Nt-aev" userLabel="Profile Name">
-                                <rect key="frame" x="16" y="154" width="253" height="27"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
-                                <color key="textColor" name="YPWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ak-NE-gV2" userLabel="Login">
-                                <rect key="frame" x="16" y="189" width="117" height="15.666666666666657"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                <color key="textColor" name="YPGray"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Riw-hJ-Lp7" userLabel="Status">
-                                <rect key="frame" x="16" y="212.66666666666666" width="95" height="15.666666666666657"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                <color key="textColor" name="YPWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez8-rf-p3l" userLabel="ExitButton">
-                                <rect key="frame" x="347" y="100" width="20" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="LUD-oR-QVy"/>
-                                    <constraint firstAttribute="height" constant="22" id="P2S-Bq-p6D"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="ipad.and.arrow.forward" catalog="system" title=" ">
-                                    <color key="baseForegroundColor" name="YPRed"/>
-                                </buttonConfiguration>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="9Tj-yB-lr3"/>
                         <color key="backgroundColor" name="YPBlack"/>
-                        <constraints>
-                            <constraint firstItem="M6x-Nt-aev" firstAttribute="top" secondItem="AW5-9n-QMT" secondAttribute="bottom" constant="8" id="1DP-50-7sM"/>
-                            <constraint firstItem="ez8-rf-p3l" firstAttribute="top" secondItem="u6v-OF-dpF" secondAttribute="top" constant="100" id="32Z-ZX-Ty8"/>
-                            <constraint firstItem="Riw-hJ-Lp7" firstAttribute="leading" secondItem="9Tj-yB-lr3" secondAttribute="leading" constant="16" id="5hZ-0r-A29"/>
-                            <constraint firstItem="9Tj-yB-lr3" firstAttribute="trailing" secondItem="M6x-Nt-aev" secondAttribute="trailing" constant="124" id="6bu-u1-6Sc"/>
-                            <constraint firstItem="9Tj-yB-lr3" firstAttribute="trailing" secondItem="3Ak-NE-gV2" secondAttribute="trailing" constant="260" id="8yD-TA-Rb0"/>
-                            <constraint firstItem="3Ak-NE-gV2" firstAttribute="leading" secondItem="9Tj-yB-lr3" secondAttribute="leading" constant="16" id="LQW-yc-xF9"/>
-                            <constraint firstItem="AW5-9n-QMT" firstAttribute="leading" secondItem="9Tj-yB-lr3" secondAttribute="leading" constant="16" id="NKH-0a-52a"/>
-                            <constraint firstItem="AW5-9n-QMT" firstAttribute="top" secondItem="u6v-OF-dpF" secondAttribute="top" constant="76" id="Wpn-Ao-ePv"/>
-                            <constraint firstItem="3Ak-NE-gV2" firstAttribute="top" secondItem="M6x-Nt-aev" secondAttribute="bottom" constant="8" id="X0a-O4-YN7"/>
-                            <constraint firstItem="9Tj-yB-lr3" firstAttribute="trailing" secondItem="ez8-rf-p3l" secondAttribute="trailing" constant="26" id="Zc7-57-BFy"/>
-                            <constraint firstItem="Riw-hJ-Lp7" firstAttribute="top" secondItem="3Ak-NE-gV2" secondAttribute="bottom" constant="8" id="Zyd-nR-9zu"/>
-                            <constraint firstItem="9Tj-yB-lr3" firstAttribute="trailing" secondItem="Riw-hJ-Lp7" secondAttribute="trailing" constant="282" id="dkT-Mw-TJB"/>
-                            <constraint firstItem="M6x-Nt-aev" firstAttribute="leading" secondItem="9Tj-yB-lr3" secondAttribute="leading" constant="16" id="zq1-Do-ggR"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="Uxg-KO-pGB"/>
-                    <connections>
-                        <outlet property="exitButton" destination="ez8-rf-p3l" id="wj8-eO-RHy"/>
-                        <outlet property="loginLabel" destination="3Ak-NE-gV2" id="2d6-lh-Udg"/>
-                        <outlet property="profileImage" destination="AW5-9n-QMT" id="Ln2-Dz-LZ4"/>
-                        <outlet property="profileName" destination="M6x-Nt-aev" id="h83-MO-O3B"/>
-                        <outlet property="statusLabel" destination="Riw-hJ-Lp7" id="dcd-9K-XxX"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zvU-Y1-FPn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -286,25 +219,14 @@
         <image name="0" width="200" height="132"/>
         <image name="Backward" width="24" height="24"/>
         <image name="FavoritesActive" width="30" height="26"/>
-        <image name="PersonCircle" width="70" height="70"/>
         <image name="ShareButton" width="51" height="50"/>
-        <image name="ipad.and.arrow.forward" catalog="system" width="113" height="128"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
         <namedColor name="YPBlack">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="YPGray">
-            <color red="0.68199998140335083" green="0.68599998950958252" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="YPRed">
-            <color red="0.96078431372549022" green="0.41960784313725491" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="YPWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
