@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
 
     private lazy var profileView: UIImageView = {
         let view = UIImageView()
@@ -41,6 +41,7 @@ class ProfileViewController: UIViewController {
         label.text = "Hello, World!"
         label.font = UIFont(name: "Helvetica Neue", size: 13)
         label.textColor = .ypWhite
+        label.numberOfLines = 0
         return label
     }()
 
@@ -83,6 +84,7 @@ class ProfileViewController: UIViewController {
             statusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 282),
             statusLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 206),
             statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            statusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
             exitButton.heightAnchor.constraint(equalToConstant: 24),
             exitButton.widthAnchor.constraint(equalToConstant: 24),

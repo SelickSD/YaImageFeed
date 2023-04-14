@@ -7,10 +7,11 @@
 
 import UIKit
 
-class SingleImageViewController: UIViewController {
-    @IBOutlet var backwardButton: UIButton!
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var shareButton: UIButton!
+final class SingleImageViewController: UIViewController {
+
+    @IBOutlet private var backwardButton: UIButton!
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var shareButton: UIButton!
 
     var image: UIImage! {
         didSet {
@@ -20,7 +21,7 @@ class SingleImageViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak private var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,14 +30,13 @@ class SingleImageViewController: UIViewController {
         rescaleAndCenterImageInScrollView(image: image)
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-
     }
-    @IBAction func didTapBackwardButton(_ sender: Any) {
+
+    @IBAction private func didTapBackwardButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 
-    
-    @IBAction func didTapShareButton(_ sender: Any) {
+    @IBAction private func didTapShareButton(_ sender: Any) {
         guard let image = image else { return }
         let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(share, animated: true)
@@ -58,11 +58,9 @@ class SingleImageViewController: UIViewController {
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
-    
 }
 
 //MARK: -- UIScrollViewDelegate
-
 extension SingleImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         imageView
