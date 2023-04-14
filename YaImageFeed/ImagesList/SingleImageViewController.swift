@@ -27,9 +27,9 @@ final class SingleImageViewController: UIViewController {
         super.viewDidLoad()
 
         imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
+        rescaleAndCenterImageInScrollView(image: image)
     }
 
     @IBAction private func didTapBackwardButton(_ sender: Any) {
