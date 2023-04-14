@@ -73,18 +73,17 @@ final class ProfileViewController: UIViewController {
             profileView.topAnchor.constraint(equalTo: view.topAnchor, constant: 76),
             profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 124),
-            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 154),
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            nameLabel.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: profileView.leadingAnchor),
 
-            loginLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 260),
-            loginLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
-            loginLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            loginLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+            loginLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            loginLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
 
-            statusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 282),
-            statusLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 206),
-            statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            statusLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            statusLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8),
+            statusLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            statusLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
 
             exitButton.heightAnchor.constraint(equalToConstant: 24),
             exitButton.widthAnchor.constraint(equalToConstant: 24),
