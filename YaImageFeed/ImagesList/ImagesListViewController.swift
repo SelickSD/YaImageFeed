@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ImagesListViewController: UIViewController {
+final class ImagesListViewController: UIViewController {
+
+    private let showSingleImageSegueIdentifier = "ShowSingleImage"
 
     @IBOutlet private var tableView: UITableView!
 
@@ -33,12 +35,24 @@ class ImagesListViewController: UIViewController {
         cell.dataLabel.text = dateFormatter.string(from: Date())
         cell.likeButton.setImage(UIImage(named: indexPath.row % 2 != 0 ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showSingleImageSegueIdentifier {
+            guard let viewController = segue.destination as? SingleImageViewController,
+                  let indexPath = sender as? IndexPath,
+                  let image = UIImage(named: photosName[indexPath.row])  else { return }
+            viewController.image = image
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
 }
 
 //MARK: extension UITableViewDelegate
 extension ImagesListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { }
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
+    }
 }
 
 //MARK: extension UITableViewDataSource
