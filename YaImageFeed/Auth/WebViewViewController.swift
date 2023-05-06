@@ -8,41 +8,92 @@
 import UIKit
 import WebKit
 
-class WebViewViewController: UIViewController {
+fileprivate let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+
+final class WebViewViewController: UIViewController {
 
     @IBOutlet private var webView: WKWebView!
     @IBOutlet private var backButton: UIButton!
+    @IBOutlet private var progressView: UIProgressView!
 
-    private let constants = Constants()
+    weak var delegate: WebViewViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.navigationDelegate = self
 
-        var urlComponents = URLComponents(url: constants.DefaultBaseURL, resolvingAgainstBaseURL: true)!
+        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: constants.AccessKey),
-            URLQueryItem(name: "redirect_uri", value: constants.RedirectURI),
-           URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: constants.AccessScope)
-         ]
-         let url = urlComponents.url!
+            URLQueryItem(name: "client_id", value: AccessKey),
+            URLQueryItem(name: "redirect_uri", value: RedirectURI),
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "scope", value: AccessScope)
+        ]
+        let url = urlComponents.url!
 
         let request = URLRequest(url: url)
-        webView.load(request) 
+        webView.load(request)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
+    }
+
+
+    override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?,
+        change: [NSKeyValueChangeKey : Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
+        if keyPath == #keyPath(WKWebView.estimatedProgress) {
+            updateProgress()
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
+    }
+
+    private func updateProgress() {
+        progressView.progress = Float(webView.estimatedProgress)
+        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
 
 
     @IBAction private func didTapBackButton(_ sender: Any) {
+        delegate?.webViewViewControllerDidCancel(self)
+    }
+}
+
+extension WebViewViewController: WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+         if let code = code(from: navigationAction) { //1
+                //TODO: process code                     //2
+                decisionHandler(.cancel) //3
+          } else {
+                decisionHandler(.allow) //4
+            }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func code(from navigationAction: WKNavigationAction) -> String? {
+        if
+            let url = navigationAction.request.url,
+            let urlComponents = URLComponents(string: url.absoluteString),
+            urlComponents.path == "/oauth/authorize/native",
+            let items = urlComponents.queryItems,
+            let codeItem = items.first(where: { $0.name == "code" })
+        {
+            return codeItem.value
+        } else {
+            return nil
+        }
     }
-    */
 
 }
