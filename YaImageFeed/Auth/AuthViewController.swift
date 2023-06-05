@@ -10,8 +10,8 @@ import UIKit
 class AuthViewController: UIViewController {
 
     private let showWebViewSegueIdentifier = "ShowWebView"
-    private let oauth2Service = OAuth2Service()
-    private let oauth2TokenStorage = OAuth2TokenStorage()
+    
+    weak var delegate: AuthViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,18 +37,9 @@ class AuthViewController: UIViewController {
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
 
-        oauth2Service.fetchOAuthToken(code) { [weak self] result in
+        delegate?.authViewController(self, didAuthenticateWithCode: code)
 
-            guard let self = self else { return }
 
-            switch result {
-            case .success(let authToken):
-                self.oauth2TokenStorage.token = authToken
-                    //   print("Access token saved \(authToken)")
-            case .failure(let error):
-                print("Failed to fetch access token: \(error)")
-            }
-        }
     }
 
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
