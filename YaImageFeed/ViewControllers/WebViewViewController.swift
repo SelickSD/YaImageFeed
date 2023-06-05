@@ -12,11 +12,11 @@ fileprivate let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authori
 
 final class WebViewViewController: UIViewController {
 
+    weak var delegate: WebViewViewControllerDelegate?
+
     @IBOutlet private var webView: WKWebView!
     @IBOutlet private var backButton: UIButton!
     @IBOutlet private var progressView: UIProgressView!
-
-    weak var delegate: WebViewViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,6 @@ final class WebViewViewController: UIViewController {
         webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
     }
 
-
     override func observeValue(
         forKeyPath keyPath: String?,
         of object: Any?,
@@ -57,47 +56,30 @@ final class WebViewViewController: UIViewController {
         }
     }
 
+    @IBAction private func didTapBackButton(_ sender: Any) {
+        delegate?.webViewViewControllerDidCancel(self)
+    }
+
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
-
-
-    @IBAction private func didTapBackButton(_ sender: Any) {
-        delegate?.webViewViewControllerDidCancel(self)
-    }
 }
 
+//MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
-         if let code = code(from: navigationAction) { //1
-             // Получение авторизационного токена и сохранение его в User Defaults
+         if let code = code(from: navigationAction) {
+
              delegate?.webViewViewController(self, didAuthenticateWithCode: code)
 
-
-//                        OAuth2Service.shared.fetchOAuthToken(code) { result in
-//                            switch result {
-//                            case .success(let authToken):
-//                                // Успешно получен токен
-//                                // Сохраняем Bearer Token в User Defaults
-//                                OAuth2TokenStorage.shared.token = authToken
-//
-//                                // Можно выполнить дополнительные действия или перейти к другому экрану
-//                                print("Access Token: \(authToken)")
-//                                self.dismiss(animated: true, completion: nil)
-//            //                    self.delegate?.webViewViewController(self, didAuthenticateWithCode: code)
-//                            case .failure(let error):
-//                                // Обработка ошибки получения токена
-//                                print("Failed to fetch access token: \(error)")
-//                            }
-//                        }
-                decisionHandler(.cancel) //3
+                decisionHandler(.cancel)
           } else {
-                decisionHandler(.allow) //4
+                decisionHandler(.allow)
             }
     }
 
@@ -114,5 +96,4 @@ extension WebViewViewController: WKNavigationDelegate {
             return nil
         }
     }
-
 }
