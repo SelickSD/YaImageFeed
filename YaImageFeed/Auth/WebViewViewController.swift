@@ -75,7 +75,26 @@ extension WebViewViewController: WKNavigationDelegate {
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
          if let code = code(from: navigationAction) { //1
-                //TODO: process code                     //2
+             // Получение авторизационного токена и сохранение его в User Defaults
+             delegate?.webViewViewController(self, didAuthenticateWithCode: code)
+
+
+//                        OAuth2Service.shared.fetchOAuthToken(code) { result in
+//                            switch result {
+//                            case .success(let authToken):
+//                                // Успешно получен токен
+//                                // Сохраняем Bearer Token в User Defaults
+//                                OAuth2TokenStorage.shared.token = authToken
+//
+//                                // Можно выполнить дополнительные действия или перейти к другому экрану
+//                                print("Access Token: \(authToken)")
+//                                self.dismiss(animated: true, completion: nil)
+//            //                    self.delegate?.webViewViewController(self, didAuthenticateWithCode: code)
+//                            case .failure(let error):
+//                                // Обработка ошибки получения токена
+//                                print("Failed to fetch access token: \(error)")
+//                            }
+//                        }
                 decisionHandler(.cancel) //3
           } else {
                 decisionHandler(.allow) //4
