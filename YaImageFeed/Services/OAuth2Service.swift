@@ -12,14 +12,17 @@ final class OAuth2Service {
     static let shared = OAuth2Service()
 
     private let urlSession = URLSession.shared
+    private let tokenStorage = OAuth2TokenStorage()
     private (set) var authToken: String? {
         get {
-            return OAuth2TokenStorage().token
+            return tokenStorage.token
         }
         set {
-            OAuth2TokenStorage().token = newValue
+            tokenStorage.token = newValue
         }
     }
+
+    private init() {}
 
     func fetchOAuthToken(
         _ code: String,
