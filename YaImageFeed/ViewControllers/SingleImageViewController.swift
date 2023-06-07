@@ -9,10 +9,6 @@ import UIKit
 
 final class SingleImageViewController: UIViewController {
 
-    @IBOutlet private var backwardButton: UIButton!
-    @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet private var shareButton: UIButton!
-
     var image: UIImage! {
         didSet {
             guard isViewLoaded else { return }
@@ -20,7 +16,10 @@ final class SingleImageViewController: UIViewController {
             rescaleAndCenterImageInScrollView(image: image)
         }
     }
-    
+
+    @IBOutlet private var backwardButton: UIButton!
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var shareButton: UIButton!
     @IBOutlet weak private var imageView: UIImageView!
 
     override func viewDidLoad() {

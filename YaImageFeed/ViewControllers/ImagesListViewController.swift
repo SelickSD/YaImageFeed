@@ -9,12 +9,10 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
 
-    private let showSingleImageSegueIdentifier = "ShowSingleImage"
-
     @IBOutlet private var tableView: UITableView!
 
+    private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private let photosName: [String] = Array(0..<21).map{ "\($0)" }
-
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -28,14 +26,6 @@ final class ImagesListViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 
-    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard let image = UIImage(named: photosName[indexPath.row]) else { return }
-
-        cell.cellImage.image = image
-        cell.dataLabel.text = dateFormatter.string(from: Date())
-        cell.likeButton.setImage(UIImage(named: indexPath.row % 2 != 0 ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             guard let viewController = segue.destination as? SingleImageViewController,
@@ -45,6 +35,14 @@ final class ImagesListViewController: UIViewController {
         } else {
             super.prepare(for: segue, sender: sender)
         }
+    }
+
+    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+        guard let image = UIImage(named: photosName[indexPath.row]) else { return }
+
+        cell.cellImage.image = image
+        cell.dataLabel.text = dateFormatter.string(from: Date())
+        cell.likeButton.setImage(UIImage(named: indexPath.row % 2 != 0 ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
     }
 }
 
