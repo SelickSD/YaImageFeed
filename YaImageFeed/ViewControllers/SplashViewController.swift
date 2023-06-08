@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class SplashViewController: UIViewController {
 
@@ -53,7 +54,9 @@ extension SplashViewController: AuthViewControllerDelegate {
             switch result {
             case .success:
                 self.switchToTabBarController()
+                ProgressHUD.show()
             case .failure(let error):
+                ProgressHUD.dismiss()
                 print("Failed to fetch access token: \(error)")
             }
         }
