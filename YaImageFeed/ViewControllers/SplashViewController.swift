@@ -54,9 +54,9 @@ extension SplashViewController: AuthViewControllerDelegate {
             switch result {
             case .success:
                 self.switchToTabBarController()
-                ProgressHUD.show()
+                UIBlockingProgressHUD.show()
             case .failure(let error):
-                ProgressHUD.dismiss()
+                UIBlockingProgressHUD.dismiss()
                 print("Failed to fetch access token: \(error)")
             }
         }
