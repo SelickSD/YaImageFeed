@@ -9,6 +9,8 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
 
+    private let profileService = ProfileService.shared
+
     private lazy var profileView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +59,18 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        profileService.fetchProfile { [weak self] result in
+            guard self != nil else { return }
+            switch result {
+            case .success(let profile):
+                self?.nameLabel.text = profile.name
+                self?.loginLabel.text = profile.loginName
+                self?.statusLabel.text = profile.bio
+                print(profile)
+            case .failure(let error):
+                print(error)
+            }
+        }
         setupView()
     }
 
