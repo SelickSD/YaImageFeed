@@ -42,7 +42,6 @@ final class ProfileService {
         for request: URLRequest,
         completion: @escaping (Result<ProfileResult, Error>) -> Void
     ) -> URLSessionTask {
-        print(#function)
         let decoder = JSONDecoder()
 
         return urlSession.data(for: request) { (result: Result<Data, Error>) in
@@ -51,7 +50,6 @@ final class ProfileService {
                     try decoder.decode(ProfileResult.self, from: data)
                 }
             }
-            print(response)
             completion(response)
         }
     }

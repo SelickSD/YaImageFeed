@@ -22,7 +22,7 @@ final class ProfileViewController: UIViewController {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Екатерина Новикова"
+        label.text = ""
         label.font = UIFont(name: "Helvetica Neue", size: 23)
         label.textColor = .ypWhite
         return label
@@ -31,7 +31,7 @@ final class ProfileViewController: UIViewController {
     private lazy var loginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "@ekaterina_nov"
+        label.text = ""
         label.font = UIFont(name: "Helvetica Neue", size: 13)
         label.textColor = .ypGray
         return label
@@ -40,7 +40,7 @@ final class ProfileViewController: UIViewController {
     private lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hello, World!"
+        label.text = ""
         label.font = UIFont(name: "Helvetica Neue", size: 13)
         label.textColor = .ypWhite
         label.numberOfLines = 0
@@ -59,6 +59,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UIBlockingProgressHUD.show()
         profileService.fetchProfile { [weak self] result in
             guard self != nil else { return }
             switch result {
@@ -66,8 +67,9 @@ final class ProfileViewController: UIViewController {
                 self?.nameLabel.text = profile.name
                 self?.loginLabel.text = profile.loginName
                 self?.statusLabel.text = profile.bio
-                print(profile)
+                UIBlockingProgressHUD.dismiss()
             case .failure(let error):
+                UIBlockingProgressHUD.dismiss()
                 print(error)
             }
         }
