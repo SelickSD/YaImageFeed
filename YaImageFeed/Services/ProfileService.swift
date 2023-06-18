@@ -12,15 +12,17 @@ final class ProfileService {
     static let shared = ProfileService()
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
+    private(set) var profile: Profile?
     
     private init() {}
     
     func fetchProfile(
+        token: String = OAuth2TokenStorage().token ?? "",
         completion: @escaping (Result<Profile, Error>) -> Void ) {
             
             assert(Thread.isMainThread)
             
-            let request = profileRequest()
+            let request = profileRequest(token: token)
             let task = object(for: request) { [weak self] result in
                 guard self != nil else { return }
                 switch result {
@@ -28,6 +30,7 @@ final class ProfileService {
                     let profile = Profile(username: body.userName,
                                           name: (body.firstName ?? "") + " " + (body.lastName ?? ""),
                                           bio: body.bio ?? "")
+                    self?.profile = profile
                     completion(.success(profile))
                 case .failure(let error):
                     completion(.failure(error))
@@ -54,11 +57,11 @@ final class ProfileService {
         }
     }
     
-    private func profileRequest() -> URLRequest {
+    private func profileRequest(token: String) -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
             path: "/me",
             httpMethod: "GET")
-        guard let token = OAuth2TokenStorage().token else {return request}
+//        guard let token = OAuth2TokenStorage().token else {return request}
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }

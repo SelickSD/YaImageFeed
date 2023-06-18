@@ -22,7 +22,7 @@ final class ProfileViewController: UIViewController {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
+        label.text = "Екатерина Новикова"
         label.font = UIFont(name: "Helvetica Neue", size: 23)
         label.textColor = .ypWhite
         return label
@@ -31,7 +31,7 @@ final class ProfileViewController: UIViewController {
     private lazy var loginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
+        label.text = "@ekaterina_nov"
         label.font = UIFont(name: "Helvetica Neue", size: 13)
         label.textColor = .ypGray
         return label
@@ -40,7 +40,7 @@ final class ProfileViewController: UIViewController {
     private lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = ""
+        label.text = "Hello, World!"
         label.font = UIFont(name: "Helvetica Neue", size: 13)
         label.textColor = .ypWhite
         label.numberOfLines = 0
@@ -59,21 +59,17 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIBlockingProgressHUD.show()
-        profileService.fetchProfile { [weak self] result in
-            guard self != nil else { return }
-            switch result {
-            case .success(let profile):
-                self?.nameLabel.text = profile.name
-                self?.loginLabel.text = profile.loginName
-                self?.statusLabel.text = profile.bio
-                UIBlockingProgressHUD.dismiss()
-            case .failure(let error):
-                UIBlockingProgressHUD.dismiss()
-                print(error)
-            }
+        if let profile = profileService.profile {
+            updateProfileDetails(profile: profile)
         }
         setupView()
+    }
+
+    private func updateProfileDetails(profile: Profile) {
+        nameLabel.text = profile.name
+        loginLabel.text = profile.loginName
+        statusLabel.text = profile.bio
+
     }
 
     private func setupView() {
