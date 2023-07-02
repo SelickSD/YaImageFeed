@@ -10,6 +10,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
 
     private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
 
     private lazy var profileView: UIImageView = {
         let view = UIImageView()
@@ -62,6 +63,11 @@ final class ProfileViewController: UIViewController {
         if let profile = profileService.profile {
             updateProfileDetails(profile: profile)
         }
+
+        if let data = profileImageService.avatarData {
+            updateProfileImageDetails(avatarData: data)
+        }
+        
         setupView()
     }
 
@@ -69,7 +75,10 @@ final class ProfileViewController: UIViewController {
         nameLabel.text = profile.name
         loginLabel.text = profile.loginName
         statusLabel.text = profile.bio
+    }
 
+    private func updateProfileImageDetails(avatarData: UIImage) {
+        profileView.image = avatarData
     }
 
     private func setupView() {

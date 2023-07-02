@@ -10,19 +10,19 @@ import Foundation
 final class ProfileService {
     
     static let shared = ProfileService()
+    private(set) var profile: Profile?
+    private let oauth2Service = OAuth2Service.shared
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
-    private(set) var profile: Profile?
-    
+
     private init() {}
     
     func fetchProfile(
-        token: String = OAuth2TokenStorage().token ?? "",
         completion: @escaping (Result<Profile, Error>) -> Void ) {
             
             assert(Thread.isMainThread)
             
-            let request = profileRequest(token: token)
+            let request = profileRequest()
             let task = object(for: request) { [weak self] result in
                 guard self != nil else { return }
                 switch result {
@@ -57,11 +57,11 @@ final class ProfileService {
         }
     }
     
-    private func profileRequest(token: String) -> URLRequest {
+    private func profileRequest() -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
             path: "/me",
             httpMethod: "GET")
-//        guard let token = OAuth2TokenStorage().token else {return request}
+        guard let token = oauth2Service.authToken else {return request}
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
