@@ -7,10 +7,11 @@
 
 import UIKit
 
-final class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController, AlertPresenterDelegate {
 
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
 
     private lazy var profileView: UIImageView = {
         let view = UIImageView()
@@ -60,13 +61,24 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        profileImageServiceObserver = NotificationCenter.default    // 2
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification, // 3
+                object: nil,                                        // 4
+                queue: .main                                        // 5
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()                                 // 6
+            }
+        updateAvatar()
+
         if let profile = profileService.profile {
             updateProfileDetails(profile: profile)
         }
 
-        if let data = profileImageService.avatarData {
-            updateProfileImageDetails(avatarData: data)
-        }
+//        if let data = profileImageService.avatarData {
+//            updateProfileImageDetails(avatarData: data)
+//        }
         
         setupView()
     }
@@ -79,6 +91,13 @@ final class ProfileViewController: UIViewController {
 
     private func updateProfileImageDetails(avatarData: UIImage) {
         profileView.image = avatarData
+    }
+
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.profileImageURL
+//            let url = URL(string: profileImageURL)
+        else { return }
     }
 
     private func setupView() {

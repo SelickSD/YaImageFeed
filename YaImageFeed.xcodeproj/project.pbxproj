@@ -37,6 +37,7 @@
 		44D4FBFA29AD168D008048B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D4FBF829AD168D008048B9 /* Main.storyboard */; };
 		44D4FBFC29AD168E008048B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D4FBFB29AD168E008048B9 /* Assets.xcassets */; };
 		44D4FBFF29AD168E008048B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D4FBFD29AD168E008048B9 /* LaunchScreen.storyboard */; };
+		44DA6DAB2A51BA04001634FB /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DA6DAA2A51BA04001634FB /* AlertPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		44D4FBFB29AD168E008048B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44D4FBFE29AD168E008048B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44D4FC0029AD168E008048B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44DA6DAA2A51BA04001634FB /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				4456D2DA2A38D99200D1A792 /* UIBlockingProgressHUD.swift */,
 				4456D2DC2A3DDAF600D1A792 /* ProfileService.swift */,
 				4456D2E22A3F3F0A00D1A792 /* ProfileImageService.swift */,
+				44DA6DAA2A51BA04001634FB /* AlertPresenter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				44D4FBF729AD168D008048B9 /* ImagesListViewController.swift in Sources */,
 				4456D2E72A3F40D300D1A792 /* ProfileImageLink.swift in Sources */,
 				4414C5362A063B820021BDEC /* OAuth2Service.swift in Sources */,
+				44DA6DAB2A51BA04001634FB /* AlertPresenter.swift in Sources */,
 				4456D2DB2A38D99200D1A792 /* UIBlockingProgressHUD.swift in Sources */,
 				4414C5342A0639910021BDEC /* OAuthTokenResponseBody.swift in Sources */,
 				443955D729CA1A7D00361829 /* ImagesListCell.swift in Sources */,

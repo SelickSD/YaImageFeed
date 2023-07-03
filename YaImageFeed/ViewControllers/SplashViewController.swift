@@ -14,6 +14,7 @@ class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service.shared
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
+    private let alertPresenter = AlertPresenter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +67,9 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.fetchProfile()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
-                // TODO [Sprint 11] Показать ошибку
+                alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
+                                         message: "Не удалось войти в систему",
+                                         buttonText: "ОК", completion: {_ in })
                 break
             }
         }
@@ -74,17 +77,19 @@ extension SplashViewController: AuthViewControllerDelegate {
 
     private func fetchProfile() {
         profileService.fetchProfile() { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let profile):
-                    self.fetchProfileImage(username: profile.username)
-                case .failure:
-                    UIBlockingProgressHUD.dismiss()
-                    // TODO [Sprint 11] Показать ошибку
-                    break
-                }
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                self.fetchProfileImage(username: profile.username)
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
+                alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
+                                         message: "Не удалось войти в систему",
+                                         buttonText: "ОК", completion: {_ in })
+                break
             }
         }
+    }
 
     private func fetchProfileImage(username: String) {
         profileImageService.fetchProfileImageURL(username: username) { [weak self] result in
@@ -95,7 +100,9 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
-                // TODO [Sprint 11] Показать ошибку
+                alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
+                                         message: "Не удалось войти в систему",
+                                         buttonText: "ОК", completion: {_ in })
                 break
             }
         }
