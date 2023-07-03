@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Kingfisher
 
-final class ProfileViewController: UIViewController, AlertPresenterDelegate {
+final class ProfileViewController: UIViewController {
 
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
@@ -75,11 +76,6 @@ final class ProfileViewController: UIViewController, AlertPresenterDelegate {
         if let profile = profileService.profile {
             updateProfileDetails(profile: profile)
         }
-
-//        if let data = profileImageService.avatarData {
-//            updateProfileImageDetails(avatarData: data)
-//        }
-        
         setupView()
     }
 
@@ -95,9 +91,8 @@ final class ProfileViewController: UIViewController, AlertPresenterDelegate {
 
     private func updateAvatar() {
         guard
-            let profileImageURL = ProfileImageService.shared.profileImageURL
-//            let url = URL(string: profileImageURL)
-        else { return }
+            let profileImageURL = ProfileImageService.shared.profileImageURL else { return }
+        profileView.kf.setImage(with: profileImageURL)
     }
 
     private func setupView() {
