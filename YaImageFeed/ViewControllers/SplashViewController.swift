@@ -16,8 +16,17 @@ class SplashViewController: UIViewController {
     private let profileImageService = ProfileImageService.shared
     private let alertPresenter = AlertPresenter()
 
+    private lazy var splashView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "Vector")
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupView()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -26,19 +35,10 @@ class SplashViewController: UIViewController {
         if let _ = oauth2Service.authToken {
             fetchProfile()
         } else {
-            performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showAuthenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(showAuthenticationScreenSegueIdentifier)") }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
+            let authViewController = AuthViewController()
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            self.present(authViewController, animated: true)
         }
     }
 
@@ -46,6 +46,16 @@ class SplashViewController: UIViewController {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
+    }
+
+    private func setupView() {
+        view.backgroundColor = .ypBlack
+        view.addSubview(splashView)
+
+        NSLayoutConstraint.activate([
+            splashView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            splashView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }
 
