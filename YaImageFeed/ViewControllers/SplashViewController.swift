@@ -35,14 +35,16 @@ class SplashViewController: UIViewController {
         if let _ = oauth2Service.authToken {
             fetchProfile()
         } else {
-            switchToAuthViewController() 
+            switchToAuthViewController()
         }
     }
 
     private func switchToAuthViewController() {
-        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
-        let authViewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AuthViewController")
-        window.rootViewController = authViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else { return }
+        authViewController.delegate = self
+        authViewController.modalPresentationStyle = .fullScreen
+        present(authViewController, animated: true, completion: nil)
     }
 
     private func switchToTabBarController() {
