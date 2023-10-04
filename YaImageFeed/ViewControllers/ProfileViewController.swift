@@ -18,6 +18,7 @@ final class ProfileViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 35
+        view.clipsToBounds = true
         view.image = UIImage(named: "PersonCircle")
         return view
     }()
@@ -69,7 +70,7 @@ final class ProfileViewController: UIViewController {
                 queue: .main
             ) { [weak self] _ in
                 guard let self = self else { return }
-                self.updateAvatar()                                
+                self.updateAvatar()
             }
         updateAvatar()
 
@@ -83,10 +84,6 @@ final class ProfileViewController: UIViewController {
         nameLabel.text = profile.name
         loginLabel.text = profile.loginName
         statusLabel.text = profile.bio
-    }
-
-    private func updateProfileImageDetails(avatarData: UIImage) {
-        profileView.image = avatarData
     }
 
     private func updateAvatar() {
