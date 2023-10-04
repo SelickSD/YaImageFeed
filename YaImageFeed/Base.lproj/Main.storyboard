@@ -59,9 +59,16 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="FavoritesActive" title=" "/>
                                                 </button>
+                                                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p4F-Nm-B2R" userLabel="Gradient View">
+                                                    <rect key="frame" x="20" y="150" width="353" height="30"/>
+                                                    <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="0.19903766556291391" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="2ST-2q-Ixf"/>
+                                                    </constraints>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flT-Bj-ztV" userLabel="Data Label">
-                                                    <rect key="frame" x="28" y="151" width="134" height="21"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                                    <rect key="frame" x="28.000000000000007" y="156.66666666666666" width="96.666666666666686" height="15.333333333333343"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -71,12 +78,15 @@
                                                 <constraint firstItem="ZtI-MO-YV2" firstAttribute="trailing" secondItem="A6Q-XV-2xw" secondAttribute="trailing" id="4Z6-mq-ao9"/>
                                                 <constraint firstItem="ZtI-MO-YV2" firstAttribute="leading" secondItem="uDB-i1-HsP" secondAttribute="leadingMargin" id="74q-OI-LnQ"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="flT-Bj-ztV" secondAttribute="trailing" constant="8" id="IXn-v3-qIR"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="p4F-Nm-B2R" secondAttribute="trailing" id="SCj-nh-jZy"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="flT-Bj-ztV" secondAttribute="bottom" constant="8" id="VOw-eb-7og"/>
                                                 <constraint firstItem="A6Q-XV-2xw" firstAttribute="leading" secondItem="uDB-i1-HsP" secondAttribute="leadingMargin" constant="294.33333333333331" id="Xyz-XE-EM5"/>
+                                                <constraint firstItem="p4F-Nm-B2R" firstAttribute="leading" secondItem="uDB-i1-HsP" secondAttribute="leadingMargin" id="bR1-pD-1Xp"/>
                                                 <constraint firstItem="flT-Bj-ztV" firstAttribute="leading" secondItem="uDB-i1-HsP" secondAttribute="leadingMargin" constant="8" id="gzH-ow-yd7"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ZtI-MO-YV2" secondAttribute="bottom" id="hsI-YE-WCW"/>
                                                 <constraint firstItem="A6Q-XV-2xw" firstAttribute="top" secondItem="ZtI-MO-YV2" secondAttribute="topMargin" id="iEB-hX-Bep"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ZtI-MO-YV2" secondAttribute="trailing" id="sGj-J4-l4K"/>
+                                                <constraint firstItem="p4F-Nm-B2R" firstAttribute="bottom" secondItem="uDB-i1-HsP" secondAttribute="bottomMargin" id="tqP-Ak-GbO"/>
                                                 <constraint firstItem="ZtI-MO-YV2" firstAttribute="top" secondItem="uDB-i1-HsP" secondAttribute="topMargin" id="xUm-on-u0v"/>
                                             </constraints>
                                         </tableViewCellContentView>
