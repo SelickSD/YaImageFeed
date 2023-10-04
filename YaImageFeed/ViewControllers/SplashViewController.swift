@@ -109,12 +109,11 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchProfileImage(username: String) {
         profileImageService.fetchProfileImageURL(username: username) { [weak self] result in
             guard let self = self else { return }
+            UIBlockingProgressHUD.dismiss()
             switch result {
             case .success:
-                UIBlockingProgressHUD.dismiss()
                 self.switchToTabBarController()
             case .failure:
-                UIBlockingProgressHUD.dismiss()
                 alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
                                          message: "Не удалось войти в систему",
                                          buttonText: "ОК", completion: {_ in })

@@ -26,17 +26,17 @@ final class ProfileImageService {
 
         let request = profileImageRequest(username: username)
 
-        let task = urlSession.objectTask(for: request) { (result: Result<UserResult, Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
             switch result {
             case .success(let body):
                 completion(.success(body.profileImageLink.resizedImageURL))
-                self.profileImageURL = body.profileImageLink.resizedImageURL
+                self?.profileImageURL = body.profileImageLink.resizedImageURL
 
                 NotificationCenter.default
                     .post(
                         name: ProfileImageService.DidChangeNotification,
                         object: self,
-                        userInfo: ["URL": self.profileImageURL ?? ""])
+                        userInfo: ["URL": self?.profileImageURL ?? ""])
             case .failure(let error):
                 completion(.failure(error))
             }

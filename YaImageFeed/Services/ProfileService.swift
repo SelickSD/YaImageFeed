@@ -24,13 +24,13 @@ final class ProfileService {
             
             let request = profileRequest()
 
-            let task = urlSession.objectTask(for: request) { (result: Result<ProfileResult, Error>) in
+            let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
                 switch result {
                 case .success(let body):
                     let profile = Profile(username: body.userName,
                                           name: (body.firstName ?? "") + " " + (body.lastName ?? ""),
                                           bio: body.bio ?? "")
-                    self.profile = profile
+                    self?.profile = profile
                     completion(.success(profile))
                 case .failure(let error):
                     completion(.failure(error))
