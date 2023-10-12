@@ -29,8 +29,9 @@ final class ProfileImageService {
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
             switch result {
             case .success(let body):
-                completion(.success(body.profileImageLink.resizedImageURL))
-                self?.profileImageURL = body.profileImageLink.resizedImageURL
+                let imageURL = URL.resizedImageURL(urlToResized: body.profileImageLink.smallLink)
+                completion(.success(imageURL))
+                self?.profileImageURL = imageURL
 
                 NotificationCenter.default
                     .post(
