@@ -37,12 +37,14 @@ class ImagesListService {
             "page":String(nextPage),
             "per_page":String(ImagesListService.BATCH_SIZE)
         ]
-        var photosPageRequest: URLRequest {
-            URLRequest.makeHTTPRequest(path: "/photos", httpMethod: "GET", needToken: true, parameters: parameters)
-        }
+        var request = URLRequest.makeHTTPRequest(path: "/photos",
+                                                 httpMethod: "GET",
+                                                 needToken: true,
+                                                 parameters: parameters)
+
         print("ImagesListService: запрашиваю изображения с параметрами: \(parameters)")
 
-        let task = urlSession.objectTask(for: photosPageRequest) { [weak self] (result: Result<[PhotoResult], Error>) in
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
             print("ImagesListService запущена задача")
             DispatchQueue.main.async {
 
@@ -73,14 +75,5 @@ class ImagesListService {
         }
         self.task = task
         task.resume()
-    }
-
-    private func imagesListRequest(lastLoadedPage page: Int) -> URLRequest {
-        var request = URLRequest.makeHTTPRequest(
-            path: "/photos",
-            httpMethod: "GET")
-        guard let token = oauth2Service.authToken else {return request}
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        return request
     }
 }

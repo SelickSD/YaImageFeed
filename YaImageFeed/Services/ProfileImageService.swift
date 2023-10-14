@@ -50,9 +50,8 @@ final class ProfileImageService {
     private func profileImageRequest(username: String) -> URLRequest {
         var request = URLRequest.makeHTTPRequest(
             path: "/users/\(username)",
-            httpMethod: "GET")
-        guard let token = oauth2Service.authToken else {return request}
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            httpMethod: "GET",
+            needToken: true)
         return request
     }
 }
