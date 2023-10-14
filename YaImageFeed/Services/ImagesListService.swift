@@ -19,7 +19,7 @@ class ImagesListService {
     private var task: URLSessionTask?
 
 
-    private init() {}
+    init() {}
 
     func fetchPhotosNextPage() {
 
