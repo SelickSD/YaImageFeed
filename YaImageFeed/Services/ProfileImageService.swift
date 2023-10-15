@@ -48,7 +48,7 @@ final class ProfileImageService {
     }
 
     private func profileImageRequest(username: String) -> URLRequest {
-        var request = URLRequest.makeHTTPRequest(
+        let request = URLRequest.makeHTTPRequest(
             path: "/users/\(username)",
             httpMethod: "GET",
             needToken: true)

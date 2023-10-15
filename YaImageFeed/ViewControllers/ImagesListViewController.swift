@@ -85,25 +85,28 @@ final class ImagesListViewController: UIViewController {
             .processor(processor)
         ]
         cell.cellImage.kf.indicatorType = .activity
-        cell.cellImage.kf.setImage(with:url,
-                                   placeholder: placeholderImage,
-                                   options: options,
-                                   completionHandler:{ [weak self] result in
-            guard self != nil else { return }
-            switch result {
-            case .success(let value):
-                // Загрузка изображения прошла успешно
-                print("Фотокарточка загружена: \(value.source.url?.absoluteString ?? "")")
-                cell.cellImage.contentMode = .scaleAspectFill
-                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
-            case .failure(let error):
-                // Возникла ошибка при загрузке изображения
-                print("Фотокарточка не загружена: \(error)")
+        cell.cellImage.kf.setImage(
+            with:url,
+            placeholder: placeholderImage,
+            options: options,
+            completionHandler:{ [weak self] result in
+                guard self != nil else { return }
+                switch result {
+                case .success(let value):
+                    // Загрузка изображения прошла успешно
+                    print("Фотокарточка загружена: \(value.source.url?.absoluteString ?? "")")
+                    cell.cellImage.contentMode = .scaleAspectFill
+                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+                case .failure(let error):
+                    // Возникла ошибка при загрузке изображения
+                    print("Фотокарточка не загружена: \(error)")
+                }
             }
-        })
+        )
 
-        cell.dataLabel.text = dateFormatter.string(from: Date())
-        cell.likeButton.setImage(UIImage(named: indexPath.row % 2 != 0 ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
+        cell.dataLabel.text = dateFormatter.string(from: photos[indexPath.row].createdAt ?? Date())
+        cell.likeButton.setImage(UIImage(named: photos[indexPath.row].isLiked ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
+        cell.delegate = self
     }
 }
 
@@ -148,6 +151,24 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row >= photos.count - 1 {
             imagesListService.fetchPhotosNextPage()
+        }
+    }
+}
+
+// MARK: ImagesListCellDelegate
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        print(#function)
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        imagesListService.changeLike(photoId: photo.id, isLike: photo.isLiked, index: indexPath.row) {result in
+            switch result {
+            case .success(let photoID):
+                print("LikeService обновил лайк в \(photoID)")
+                self.tableView.reloadData()
+            case .failure:
+                print("Что-то не получилось поставить лайк в \(indexPath)")
+            }
         }
     }
 }
