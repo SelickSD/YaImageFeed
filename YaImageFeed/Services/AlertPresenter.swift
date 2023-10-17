@@ -11,15 +11,15 @@ class AlertPresenter {
 
     func showAlert(viewController: UIViewController, title: String,
                    message: String,
-                   buttonText: String,
-                   completion: @escaping (UIAlertAction) -> Void) {
+                   alertAction: [UIAlertAction]) {
 
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: buttonText, style: .default, handler: completion)
-        alert.addAction(action)
 
-        viewController.present(alert, animated: true)
+        alertAction.forEach { value in
+            alert.addAction(value)
+            viewController.present(alert, animated: true)
+        }
     }
 }

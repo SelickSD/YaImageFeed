@@ -48,7 +48,10 @@ final class ImagesListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             guard let viewController = segue.destination as? SingleImageViewController,
-                  let image = UIImage(named: "Stub")  else { return }
+                  let image = UIImage(named: "Stub"),
+                  let index = tableView.indexPathForSelectedRow?.row else { return }
+            let urlString = URL(string: photos[index].largeImageURL)
+            viewController.photoURL = URL.resizedImageURL(urlToResized: urlString)
             viewController.image = image
         } else {
             super.prepare(for: segue, sender: sender)
@@ -107,6 +110,22 @@ final class ImagesListViewController: UIViewController {
         cell.dataLabel.text = dateFormatter.string(from: photos[indexPath.row].createdAt ?? Date())
         cell.likeButton.setImage(UIImage(named: photos[indexPath.row].isLiked ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
         cell.delegate = self
+    }
+
+    private func prepareDataForImage(urlString: String) -> (url: URL?, placeHolder: UIImage?, options: KingfisherOptionsInfo) {
+
+        let urlToResized = URL(string: urlString)
+        let url = URL.resizedImageURL(urlToResized: urlToResized)
+        let placeholderImage = UIImage(named: "Stub")
+        let placeholderColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        let processor = RoundCornerImageProcessor(cornerRadius: 16)
+        let options: KingfisherOptionsInfo = [
+            .backgroundDecode,
+            .onFailureImage(placeholderImage?.kf.image(withBlendMode: .normal, backgroundColor: placeholderColor)),
+            .processor(processor)
+        ]
+        return (url, placeholderImage, options)
+
     }
 }
 

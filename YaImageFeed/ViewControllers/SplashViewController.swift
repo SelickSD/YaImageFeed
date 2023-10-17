@@ -82,9 +82,10 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.fetchProfile()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
+                let alert = [UIAlertAction(title: "ОК", style: .default)]
                 alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
                                          message: "Не удалось войти в систему",
-                                         buttonText: "ОК", completion: {_ in })
+                                         alertAction: alert)
                 break
             }
         }
@@ -98,9 +99,10 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.fetchProfileImage(username: profile.username)
             case .failure:
                 UIBlockingProgressHUD.dismiss()
+                let alert = [UIAlertAction(title: "Не удалось войти в систему", style: .default)]
                 alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
                                          message: "Не удалось войти в систему",
-                                         buttonText: "ОК", completion: {_ in })
+                                         alertAction: alert)
                 break
             }
         }
@@ -114,9 +116,10 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success:
                 self.switchToTabBarController()
             case .failure:
+                let alert = [UIAlertAction(title: "ОК", style: .default)]
                 alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
                                          message: "Не удалось войти в систему",
-                                         buttonText: "ОК", completion: {_ in })
+                                         alertAction: alert)
                 break
             }
         }

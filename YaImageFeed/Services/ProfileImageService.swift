@@ -20,7 +20,7 @@ final class ProfileImageService {
 
     private init() {}
 
-    func fetchProfileImageURL(username: String, _ completion: @escaping (Result<URL, Error>) -> Void) {
+    func fetchProfileImageURL(username: String, _ completion: @escaping (Result<URL?, Error>) -> Void) {
 
         assert(Thread.isMainThread)
 
