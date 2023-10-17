@@ -24,7 +24,10 @@ final class ProfileImageService {
 
         assert(Thread.isMainThread)
 
-        let request = profileImageRequest(username: username)
+        let request = URLRequest.makeHTTPRequest(
+            path: "/users/\(username)",
+            httpMethod: "GET",
+            needToken: true)
 
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
             switch result {
@@ -47,11 +50,11 @@ final class ProfileImageService {
         task.resume()
     }
 
-    private func profileImageRequest(username: String) -> URLRequest {
-        let request = URLRequest.makeHTTPRequest(
-            path: "/users/\(username)",
-            httpMethod: "GET",
-            needToken: true)
-        return request
-    }
+//    private func profileImageRequest(username: String) -> URLRequest {
+//        let request = URLRequest.makeHTTPRequest(
+//            path: "/users/\(username)",
+//            httpMethod: "GET",
+//            needToken: true)
+//        return request
+//    }
 }

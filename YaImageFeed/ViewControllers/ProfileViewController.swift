@@ -127,5 +127,8 @@ final class ProfileViewController: UIViewController {
 
         print(#function)
 
+        OAuth2TokenStorage.clean()
+        self.present(SplashViewController(), animated: true, completion: nil)
+
     }
 }
