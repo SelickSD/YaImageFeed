@@ -128,8 +128,8 @@ class ImagesListService {
     }
 
     private func formatDate(dateString: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let dateFormatter = ISO8601DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         let date = dateFormatter.date(from: dateString)
         return date
     }
