@@ -11,10 +11,6 @@ import ProgressHUD
 
 final class SingleImageViewController: UIViewController {
 
-    private static var window: UIWindow? {
-        return UIApplication.shared.windows.first
-    }
-
     var image: UIImage! {
         didSet {
             guard isViewLoaded else { return }
@@ -36,7 +32,6 @@ final class SingleImageViewController: UIViewController {
         super.viewDidLoad()
 
         loadImage()
-        //        imageView.image = image
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
 
@@ -54,8 +49,6 @@ final class SingleImageViewController: UIViewController {
     }
 
     private func loadImage() {
-
-        SingleImageViewController.window?.isUserInteractionEnabled = false
 
         UIBlockingProgressHUD.show()
         let placeholderImage = UIImage(named: "Stub")
@@ -87,20 +80,16 @@ final class SingleImageViewController: UIViewController {
 
                 case .failure(_):
                     UIBlockingProgressHUD.dismiss()
-
                     alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так.",
                                              message: "Попробовать ещё раз?",
                                              alertAction: alert)
+                    break
                 }
             }
         )
         rescaleAndCenterImageInScrollView(image: imageView.image ?? image)
     }
 
-    private func showError() {
-        
-    }
-    
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
         let maxZoomScale = scrollView.maximumZoomScale

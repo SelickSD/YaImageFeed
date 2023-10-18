@@ -31,7 +31,6 @@ class ImagesListService {
         assert(Thread.isMainThread)
 
         if task != nil {
-            print("Останавливаю выполнение, потому что запущена задача ImagesListService")
             task?.cancel()
         }
         
@@ -45,16 +44,12 @@ class ImagesListService {
                                                  needToken: true,
                                                  parameters: parameters)
 
-        print("ImagesListService: запрашиваю изображения с параметрами: \(parameters)")
-
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
-            print("ImagesListService запущена задача")
             DispatchQueue.main.async {
 
-                guard let self = self else { print("ImagesListService тут гард"); return }
+                guard let self = self else { return }
                 switch result {
                 case .success(let body):
-                    print("ImagesListService: обновляю фотографии, текущая длина массива фото \(self.photos.count)")
                     self.photos += body.map {
                         Photo(id: $0.id,
                               size: CGSize(width: Double($0.width) ,height: Double($0.height)),
@@ -64,14 +59,14 @@ class ImagesListService {
                               largeImageURL: $0.urls.fullLink ?? "",
                               isLiked: $0.isLiked)
                     }
-                    print("ImagesListService: обновил фотографии, текущая длина массива фото \(self.photos.count)")
+
                     NotificationCenter.default.post(
                         name: ImagesListService.DidChangeNotification,
                         object: self,
                         userInfo: ["photos": self.photos])
                     self.task = nil
                 case .failure(let error):
-                    print("ImagesListService ОШИБКА \(error)")
+                    print("Ошибка \(error)")
                     self.task = nil
                 }
             }
@@ -85,7 +80,6 @@ class ImagesListService {
         assert(Thread.isMainThread)
 
         if likeTask != nil {
-            print("Останавливаю выполнение, потому что запущена задача ImagesListService")
             likeTask?.cancel()
         }
 
@@ -97,7 +91,6 @@ class ImagesListService {
 
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<LikeUpdateResult, Error>) in
             UIBlockingProgressHUD.show()
-            print("ImagesListService запущена задача")
 
             DispatchQueue.main.async {
 
@@ -117,7 +110,7 @@ class ImagesListService {
                     self.likeTask = nil
 
                 case .failure(let error):
-                    print("ImagesListService ОШИБКА \(error)")
+                    print("Ошибка \(error)")
                     self.likeTask = nil
                 }
                 UIBlockingProgressHUD.dismiss()
@@ -129,7 +122,6 @@ class ImagesListService {
 
     private func formatDate(dateString: String) -> Date? {
         let dateFormatter = ISO8601DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         let date = dateFormatter.date(from: dateString)
         return date
     }

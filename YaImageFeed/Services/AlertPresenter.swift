@@ -19,7 +19,7 @@ class AlertPresenter {
 
         alertAction.forEach { value in
             alert.addAction(value)
-            viewController.present(alert, animated: true)
         }
+        viewController.present(alert, animated: true)
     }
 }

@@ -95,14 +95,11 @@ final class ImagesListViewController: UIViewController {
             completionHandler:{ [weak self] result in
                 guard self != nil else { return }
                 switch result {
-                case .success(let value):
-                    // Загрузка изображения прошла успешно
-                    print("Фотокарточка загружена: \(value.source.url?.absoluteString ?? "")")
+                case .success(_):
                     cell.cellImage.contentMode = .scaleAspectFill
                     self?.tableView.reloadRows(at: [indexPath], with: .automatic)
                 case .failure(let error):
-                    // Возникла ошибка при загрузке изображения
-                    print("Фотокарточка не загружена: \(error)")
+                    print("Ошибка: \(error)")
                 }
             }
         )

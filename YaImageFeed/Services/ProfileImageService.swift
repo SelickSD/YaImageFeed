@@ -16,8 +16,7 @@ final class ProfileImageService {
     private let oauth2Service = OAuth2Service.shared
     private var task: URLSessionTask?
     private (set) var profileImageURL: URL?
-
-
+    
     private init() {}
 
     func fetchProfileImageURL(username: String, _ completion: @escaping (Result<URL?, Error>) -> Void) {
@@ -49,12 +48,4 @@ final class ProfileImageService {
         self.task = task
         task.resume()
     }
-
-//    private func profileImageRequest(username: String) -> URLRequest {
-//        let request = URLRequest.makeHTTPRequest(
-//            path: "/users/\(username)",
-//            httpMethod: "GET",
-//            needToken: true)
-//        return request
-//    }
 }
