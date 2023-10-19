@@ -10,7 +10,6 @@ import UIKit
 class AuthViewController: UIViewController {
 
     weak var delegate: AuthViewControllerDelegate?
-
     private let showWebViewSegueIdentifier = "ShowWebView"
 
     override func viewDidLoad() {
@@ -24,6 +23,7 @@ class AuthViewController: UIViewController {
                 let webViewViewController = segue.destination as? WebViewViewController
             else { fatalError("Failed to prepare for \(showWebViewSegueIdentifier)") }
             webViewViewController.delegate = self
+
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -31,7 +31,6 @@ class AuthViewController: UIViewController {
 }
 
 //MARK: - WebViewViewControllerDelegate
-
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
 

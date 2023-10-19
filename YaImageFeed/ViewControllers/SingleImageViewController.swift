@@ -18,7 +18,6 @@ final class SingleImageViewController: UIViewController {
             rescaleAndCenterImageInScrollView(image: image)
         }
     }
-
     var photoURL: URL!
 
     @IBOutlet private var backwardButton: UIButton!
@@ -34,7 +33,6 @@ final class SingleImageViewController: UIViewController {
         loadImage()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-
     }
 
     @IBAction private func didTapBackwardButton(_ sender: Any) {
@@ -43,15 +41,16 @@ final class SingleImageViewController: UIViewController {
 
     @IBAction private func didTapShareButton(_ sender: Any) {
         guard let image = image else { return }
+
         let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(share, animated: true)
-
     }
 
     private func loadImage() {
 
         UIBlockingProgressHUD.show()
-        let placeholderImage = UIImage(named: "Stub")
+
+        let placeholderImage = UIImage(named: "StubSingle")
         let placeholderColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         let processor = RoundCornerImageProcessor(cornerRadius: 16)
         let options: KingfisherOptionsInfo = [
@@ -60,26 +59,26 @@ final class SingleImageViewController: UIViewController {
             .processor(processor)
         ]
         let alert: [UIAlertAction] = [
-            UIAlertAction(title: "Не надо", style: .default, handler: { _ in
-            }),
-            UIAlertAction(title: "Повторить", style: .default, handler: { _ in
-                self.loadImage()})
+            UIAlertAction(title: "Не надо", style: .default, handler: { _ in }),
+            UIAlertAction(title: "Повторить", style: .default, handler: { [weak self] _ in
+                self?.loadImage()})
         ]
 
-        self.imageView.kf.indicatorType = .activity
+        self.imageView.kf.indicatorType = .custom(indicator: CustomActivityIndicator())
         self.imageView.kf.setImage(
             with: photoURL,
-            placeholder: placeholderImage,
+            placeholder: nil,
             options: options,
             completionHandler:{ [weak self] result in
                 guard let self = self else { return }
+
+                UIBlockingProgressHUD.dismiss()
+
                 switch result {
                 case .success(let imageResult):
-                    UIBlockingProgressHUD.dismiss()
                     rescaleAndCenterImageInScrollView(image: imageResult.image)
-
+                    
                 case .failure(_):
-                    UIBlockingProgressHUD.dismiss()
                     alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так.",
                                              message: "Попробовать ещё раз?",
                                              alertAction: alert)

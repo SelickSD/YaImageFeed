@@ -33,10 +33,10 @@ final class OAuth2TokenStorage {
         // Очищаем все куки из хранилища.
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         // Запрашиваем все данные из локального хранилища.
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {
             // Массив полученных записей удаляем из хранилища.
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            $0.forEach {
+                WKWebsiteDataStore.default().removeData(ofTypes: $0.dataTypes, for: [$0], completionHandler: {})
             }
         }
     }

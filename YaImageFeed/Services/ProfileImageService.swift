@@ -10,7 +10,7 @@ import UIKit
 final class ProfileImageService {
 
     static let shared = ProfileImageService()
-    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     private let urlSession = URLSession.shared
     private let profileService = ProfileService.shared
     private let oauth2Service = OAuth2Service.shared
@@ -37,7 +37,7 @@ final class ProfileImageService {
 
                 NotificationCenter.default
                     .post(
-                        name: ProfileImageService.DidChangeNotification,
+                        name: ProfileImageService.didChangeNotification,
                         object: self,
                         userInfo: ["URL": self?.profileImageURL ?? ""])
             case .failure(let error):

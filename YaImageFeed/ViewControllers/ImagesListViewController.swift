@@ -28,7 +28,7 @@ final class ImagesListViewController: UIViewController {
 
         imagesListServiceObserver = NotificationCenter.default
             .addObserver(
-                forName: ImagesListService.DidChangeNotification,
+                forName: ImagesListService.didChangeNotification,
                 object: nil,
                 queue: .main
             ) { [weak self] _ in
@@ -45,11 +45,18 @@ final class ImagesListViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             guard let viewController = segue.destination as? SingleImageViewController,
                   let image = UIImage(named: "Stub"),
                   let index = tableView.indexPathForSelectedRow?.row else { return }
+            
             let urlString = URL(string: photos[index].largeImageURL)
             viewController.photoURL = URL.resizedImageURL(urlToResized: urlString)
             viewController.image = image
@@ -67,9 +74,7 @@ final class ImagesListViewController: UIViewController {
 
         if oldCount != newCount {
             tableView.performBatchUpdates {
-                let indexPath = (oldCount ..< newCount).map { i in
-                    IndexPath(item: i, section: 0)
-                }
+                let indexPath = (oldCount ..< newCount).map { IndexPath(item: $0, section: 0) }
                 self.tableView.insertRows(at: indexPath, with: .automatic)
             } completion: { _ in }
         }
@@ -87,7 +92,7 @@ final class ImagesListViewController: UIViewController {
             .onFailureImage(placeholderImage?.kf.image(withBlendMode: .normal, backgroundColor: placeholderColor)),
             .processor(processor)
         ]
-        cell.cellImage.kf.indicatorType = .activity
+        cell.cellImage.kf.indicatorType = .custom(indicator: CustomActivityIndicator())
         cell.cellImage.kf.setImage(
             with:url,
             placeholder: placeholderImage,
@@ -177,11 +182,11 @@ extension ImagesListViewController: ImagesListCellDelegate {
         print(#function)
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let photo = photos[indexPath.row]
-        imagesListService.changeLike(photoId: photo.id, isLike: photo.isLiked, index: indexPath.row) {result in
+        imagesListService.changeLike(photoId: photo.id, isLike: photo.isLiked, index: indexPath.row) {[weak self] result in
             switch result {
             case .success(let photoID):
                 print("LikeService обновил лайк в \(photoID)")
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
             case .failure:
                 print("Что-то не получилось поставить лайк в \(indexPath)")
             }

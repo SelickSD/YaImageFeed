@@ -12,7 +12,7 @@ class ImagesListService {
 
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
-    static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
+    static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     private static let BATCH_SIZE = 10
     static let shared = ImagesListService()
     private let urlSession = URLSession.shared
@@ -24,7 +24,6 @@ class ImagesListService {
     private init() {}
 
     func fetchPhotosNextPage() {
-
 
         let nextPage = 1 + (Int(photos.count) / ImagesListService.BATCH_SIZE)
 
@@ -61,7 +60,7 @@ class ImagesListService {
                     }
 
                     NotificationCenter.default.post(
-                        name: ImagesListService.DidChangeNotification,
+                        name: ImagesListService.didChangeNotification,
                         object: self,
                         userInfo: ["photos": self.photos])
                     self.task = nil
@@ -104,7 +103,7 @@ class ImagesListService {
                     completion(.success(photoId))
 
                     NotificationCenter.default.post(
-                        name: ImagesListService.DidChangeNotification,
+                        name: ImagesListService.didChangeNotification,
                         object: self,
                         userInfo: ["photos": self.photos])
                     self.likeTask = nil
