@@ -40,6 +40,5 @@ final class OAuth2TokenStorage {
             }
         }
     }
-
     private let userDefaults = UserDefaults.standard
 }
