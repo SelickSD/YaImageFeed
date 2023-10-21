@@ -9,9 +9,9 @@ import UIKit
 import Kingfisher
 
 final class ImagesListViewController: UIViewController {
-
+    
     @IBOutlet private var tableView: UITableView!
-
+    
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private let imagesListService = ImagesListService.shared
     private var imagesListServiceObserver: NSObjectProtocol?
@@ -22,10 +22,10 @@ final class ImagesListViewController: UIViewController {
         return formatter
     }()
     private var photos: [Photo] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         imagesListServiceObserver = NotificationCenter.default
             .addObserver(
                 forName: ImagesListService.didChangeNotification,
@@ -35,26 +35,26 @@ final class ImagesListViewController: UIViewController {
                 guard let self = self else { return }
                 self.updateTableViewAnimated()
             }
-
+        
         DispatchQueue.main.async {
             if self.photos.count == 0 {
                 self.imagesListService.fetchPhotosNextPage()
             }
         }
-
+        
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-
-
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             guard let viewController = segue.destination as? SingleImageViewController,
-                  let image = UIImage(named: "Stub"),
+                  let image = UIImage(named: "StubSingle"),
                   let index = tableView.indexPathForSelectedRow?.row else { return }
             
             let urlString = URL(string: photos[index].largeImageURL)
@@ -64,14 +64,14 @@ final class ImagesListViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
-
+    
     private func updateTableViewAnimated() {
-
+        
         let oldCount = photos.count
         let newCount = imagesListService.photos.count
-
+        
         photos = imagesListService.photos
-
+        
         if oldCount != newCount {
             tableView.performBatchUpdates {
                 let indexPath = (oldCount ..< newCount).map { IndexPath(item: $0, section: 0) }
@@ -79,7 +79,7 @@ final class ImagesListViewController: UIViewController {
             } completion: { _ in }
         }
     }
-
+    
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let urlToResized = URL(string: photos[indexPath.row].thumbImageURL) else {return}
 
@@ -92,6 +92,7 @@ final class ImagesListViewController: UIViewController {
             .onFailureImage(placeholderImage?.kf.image(withBlendMode: .normal, backgroundColor: placeholderColor)),
             .processor(processor)
         ]
+        
         cell.cellImage.kf.indicatorType = .custom(indicator: CustomActivityIndicator())
         cell.cellImage.kf.setImage(
             with:url,
@@ -113,9 +114,9 @@ final class ImagesListViewController: UIViewController {
         cell.likeButton.setImage(UIImage(named: photos[indexPath.row].isLiked ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
         cell.delegate = self
     }
-
+    
     private func prepareDataForImage(urlString: String) -> (url: URL?, placeHolder: UIImage?, options: KingfisherOptionsInfo) {
-
+        
         let urlToResized = URL(string: urlString)
         let url = URL.resizedImageURL(urlToResized: urlToResized)
         let placeholderImage = UIImage(named: "Stub")
@@ -127,7 +128,7 @@ final class ImagesListViewController: UIViewController {
             .processor(processor)
         ]
         return (url, placeholderImage, options)
-
+        
     }
 }
 
@@ -144,22 +145,22 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
-
+        
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-
+        
         configCell(for: imageListCell, with: indexPath)
         return imageListCell
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         guard indexPath.row < imagesListService.photos.count else { return CGFloat() }
-
+        
         let image = photos[indexPath.row]
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
@@ -168,7 +169,7 @@ extension ImagesListViewController: UITableViewDataSource {
         let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
     }
-
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row >= photos.count - 1 {
             imagesListService.fetchPhotosNextPage()

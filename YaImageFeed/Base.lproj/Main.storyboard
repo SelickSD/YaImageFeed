@@ -46,12 +46,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="191"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZtI-MO-YV2" userLabel="Cell Image">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stub" translatesAutoresizingMaskIntoConstraints="NO" id="ZtI-MO-YV2" userLabel="Cell Image">
                                                     <rect key="frame" x="20" y="11" width="353" height="169"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="16"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6Q-XV-2xw" userLabel="Like Button">
@@ -347,6 +348,7 @@
         <image name="Backward" width="24" height="24"/>
         <image name="FavoritesActive" width="30" height="26"/>
         <image name="ShareButton" width="51" height="50"/>
+        <image name="Stub" width="168" height="224"/>
         <image name="VectorLoginW" width="60" height="60"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <namedColor name="YPBlack">
