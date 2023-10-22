@@ -10,20 +10,20 @@ import ProgressHUD
 
 class ImagesListService {
 
-    private (set) var photos: [Photo] = []
-    private var lastLoadedPage: Int?
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
-    private static let BATCH_SIZE = 10
     static let shared = ImagesListService()
+
+    private static let BATCH_SIZE = 10
     private let urlSession = URLSession.shared
     private let oauth2Service = OAuth2Service.shared
+    private (set) var photos: [Photo] = []
+    private var lastLoadedPage: Int?
     private var task: URLSessionTask?
     private var likeTask: URLSessionTask?
 
     private init() {}
 
     func fetchPhotosNextPage() {
-
         let nextPage = 1 + (Int(photos.count) / ImagesListService.BATCH_SIZE)
 
         assert(Thread.isMainThread)
@@ -44,7 +44,6 @@ class ImagesListService {
 
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
             DispatchQueue.main.async {
-
                 guard let self = self else { return }
                 switch result {
                 case .success(let body):
@@ -57,7 +56,6 @@ class ImagesListService {
                               largeImageURL: $0.urls.fullLink ?? "",
                               isLiked: $0.isLiked)
                     }
-
                     NotificationCenter.default.post(
                         name: ImagesListService.didChangeNotification,
                         object: self,
@@ -91,7 +89,6 @@ class ImagesListService {
             UIBlockingProgressHUD.show()
 
             DispatchQueue.main.async {
-
                 guard let self = self else { return }
 
                 switch result {

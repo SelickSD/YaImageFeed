@@ -11,10 +11,6 @@ import WebKit
 
 final class OAuth2TokenStorage {
 
-    private enum Keys: String {
-        case token
-    }
-
     var token: String? {
         get {
             return KeychainWrapper.standard.string(forKey: "Auth token")
@@ -24,6 +20,10 @@ final class OAuth2TokenStorage {
             let isSuccess = KeychainWrapper.standard.set(token, forKey: "Auth token")
             guard isSuccess else { return }
         }
+    }
+
+    private enum Keys: String {
+        case token
     }
 
     static func clean() {

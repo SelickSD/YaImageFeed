@@ -21,7 +21,7 @@ class CustomActivityIndicator: Indicator {
         ProgressHUD.colorHUD = .ypBlack
         ProgressHUD.colorBackground = .ypWhite
         ProgressHUD.animationType = .systemActivityIndicator
-        ProgressHUD.colorAnimation = .ypBlack
+        ProgressHUD.colorAnimation = .lightGray
         ProgressHUD.colorProgress = .ypBlack
         ProgressHUD.show()
     }

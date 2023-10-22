@@ -129,6 +129,7 @@ final class ProfileViewController: UIViewController {
             exitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
+    
     @objc private func didTapExitButton() {
 
         let alert: [UIAlertAction] = [

@@ -15,12 +15,14 @@ final class ImagesListViewController: UIViewController {
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private let imagesListService = ImagesListService.shared
     private var imagesListServiceObserver: NSObjectProtocol?
+
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
         return formatter
     }()
+
     private var photos: [Photo] = []
     
     override func viewDidLoad() {
@@ -49,8 +51,7 @@ final class ImagesListViewController: UIViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             guard let viewController = segue.destination as? SingleImageViewController,
@@ -84,20 +85,12 @@ final class ImagesListViewController: UIViewController {
         guard let urlToResized = URL(string: photos[indexPath.row].thumbImageURL) else {return}
 
         let url = URL.resizedImageURL(urlToResized: urlToResized)
-        let placeholderImage = UIImage(named: "Stub")
-        let placeholderColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        let processor = RoundCornerImageProcessor(cornerRadius: 16)
-        let options: KingfisherOptionsInfo = [
-            .backgroundDecode,
-            .onFailureImage(placeholderImage?.kf.image(withBlendMode: .normal, backgroundColor: placeholderColor)),
-            .processor(processor)
-        ]
         
         cell.cellImage.kf.indicatorType = .custom(indicator: CustomActivityIndicator())
         cell.cellImage.kf.setImage(
             with:url,
-            placeholder: placeholderImage,
-            options: options,
+            placeholder: UIImage(named: "Stub"),
+            options: nil,
             completionHandler:{ [weak self] result in
                 guard self != nil else { return }
                 switch result {
@@ -109,26 +102,9 @@ final class ImagesListViewController: UIViewController {
                 }
             }
         )
-
         cell.dataLabel.text = dateFormatter.string(from: photos[indexPath.row].createdAt ?? Date())
         cell.likeButton.setImage(UIImage(named: photos[indexPath.row].isLiked ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
         cell.delegate = self
-    }
-    
-    private func prepareDataForImage(urlString: String) -> (url: URL?, placeHolder: UIImage?, options: KingfisherOptionsInfo) {
-        
-        let urlToResized = URL(string: urlString)
-        let url = URL.resizedImageURL(urlToResized: urlToResized)
-        let placeholderImage = UIImage(named: "Stub")
-        let placeholderColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        let processor = RoundCornerImageProcessor(cornerRadius: 16)
-        let options: KingfisherOptionsInfo = [
-            .backgroundDecode,
-            .onFailureImage(placeholderImage?.kf.image(withBlendMode: .normal, backgroundColor: placeholderColor)),
-            .processor(processor)
-        ]
-        return (url, placeholderImage, options)
-        
     }
 }
 
@@ -152,6 +128,10 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
+
+        imageListCell.cellImage.layer.cornerRadius = 16
+        imageListCell.cellImage.image = UIImage(named: "Stub")
+        imageListCell.cellImage.clipsToBounds = true
         
         configCell(for: imageListCell, with: indexPath)
         return imageListCell

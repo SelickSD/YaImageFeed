@@ -18,6 +18,7 @@ final class SingleImageViewController: UIViewController {
             rescaleAndCenterImageInScrollView(image: image)
         }
     }
+    
     var photoURL: URL!
 
     @IBOutlet private var backwardButton: UIButton!
