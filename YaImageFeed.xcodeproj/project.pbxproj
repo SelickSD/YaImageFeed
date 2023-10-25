@@ -31,6 +31,9 @@
 		447A76F12A2E6C8900CBC69B /* URLRequest + Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447A76F02A2E6C8900CBC69B /* URLRequest + Extentions.swift */; };
 		447A76F32A2E6D0D00CBC69B /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447A76F22A2E6D0D00CBC69B /* NetworkError.swift */; };
 		447A76F52A2E6D4500CBC69B /* URLSession + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447A76F42A2E6D4500CBC69B /* URLSession + Extensions.swift */; };
+		447DA1BA2AE8DC3C001A7057 /* WebViewViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DA1B92AE8DC3C001A7057 /* WebViewViewControllerProtocol.swift */; };
+		447DA1BC2AE8DC8D001A7057 /* WebViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DA1BB2AE8DC8D001A7057 /* WebViewPresenterProtocol.swift */; };
+		447DA1BE2AE8DD3F001A7057 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DA1BD2AE8DD3F001A7057 /* WebViewPresenter.swift */; };
 		44917C142AD414320032C7BC /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44917C132AD414320032C7BC /* ImagesListService.swift */; };
 		44917C162AD414CA0032C7BC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44917C152AD414CA0032C7BC /* Photo.swift */; };
 		44917C182AD43E0B0032C7BC /* PhotoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44917C172AD43E0B0032C7BC /* PhotoResult.swift */; };
@@ -75,6 +78,9 @@
 		447A76F02A2E6C8900CBC69B /* URLRequest + Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest + Extentions.swift"; sourceTree = "<group>"; };
 		447A76F22A2E6D0D00CBC69B /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		447A76F42A2E6D4500CBC69B /* URLSession + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession + Extensions.swift"; sourceTree = "<group>"; };
+		447DA1B92AE8DC3C001A7057 /* WebViewViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerProtocol.swift; sourceTree = "<group>"; };
+		447DA1BB2AE8DC8D001A7057 /* WebViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		447DA1BD2AE8DD3F001A7057 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		44917C132AD414320032C7BC /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
 		44917C152AD414CA0032C7BC /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		44917C172AD43E0B0032C7BC /* PhotoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResult.swift; sourceTree = "<group>"; };
@@ -174,15 +180,33 @@
 		447A76F62A2E6EC800CBC69B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				447DA1B72AE8DB46001A7057 /* AuthAndWebView */,
 				447A76EC2A2E087C00CBC69B /* SplashViewController.swift */,
-				44041E6929F502D00071556B /* AuthViewController.swift */,
-				44041E6C29F50B510071556B /* WebViewViewController.swift */,
 				44041E2429E5D8D60071556B /* SingleImageViewController.swift */,
 				4413B3DC29DB365D00123336 /* ProfileViewController.swift */,
 				44D4FBF629AD168D008048B9 /* ImagesListViewController.swift */,
 				44D43DDE2A54721C00AA7EA0 /* TabBarController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		447DA1B72AE8DB46001A7057 /* AuthAndWebView */ = {
+			isa = PBXGroup;
+			children = (
+				44041E6929F502D00071556B /* AuthViewController.swift */,
+				44041E6C29F50B510071556B /* WebViewViewController.swift */,
+				447DA1BD2AE8DD3F001A7057 /* WebViewPresenter.swift */,
+			);
+			path = AuthAndWebView;
+			sourceTree = "<group>";
+		};
+		447DA1B82AE8DC0C001A7057 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				447DA1B92AE8DC3C001A7057 /* WebViewViewControllerProtocol.swift */,
+				447DA1BB2AE8DC8D001A7057 /* WebViewPresenterProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		44D4FBE629AD168D008048B9 = {
@@ -204,6 +228,7 @@
 		44D4FBF129AD168D008048B9 /* YaImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				447DA1B82AE8DC0C001A7057 /* Protocols */,
 				447A76F62A2E6EC800CBC69B /* ViewControllers */,
 				4414C5322A0639670021BDEC /* Models */,
 				44041E6E29F596C00071556B /* Services */,
@@ -314,6 +339,7 @@
 				4413B3DD29DB365D00123336 /* ProfileViewController.swift in Sources */,
 				4456D2E52A3F3F3B00D1A792 /* UserResult.swift in Sources */,
 				44917C2B2ADC4BEF0032C7BC /* ImagesListCellDelegate.swift in Sources */,
+				447DA1BE2AE8DD3F001A7057 /* WebViewPresenter.swift in Sources */,
 				447A76EB2A251C0E00CBC69B /* OAuth2TokenStorage.swift in Sources */,
 				4456D2E32A3F3F0A00D1A792 /* ProfileImageService.swift in Sources */,
 				44041E2929E72A450071556B /* UIColor + Extensions.swift in Sources */,
@@ -321,6 +347,7 @@
 				44917C182AD43E0B0032C7BC /* PhotoResult.swift in Sources */,
 				44917C1A2AD445320032C7BC /* UrlsResult.swift in Sources */,
 				447A76ED2A2E087C00CBC69B /* SplashViewController.swift in Sources */,
+				447DA1BC2AE8DC8D001A7057 /* WebViewPresenterProtocol.swift in Sources */,
 				44041E2529E5D8D60071556B /* SingleImageViewController.swift in Sources */,
 				44917C2D2ADC56AF0032C7BC /* LikeUpdateResult.swift in Sources */,
 				44917C142AD414320032C7BC /* ImagesListService.swift in Sources */,
@@ -328,6 +355,7 @@
 				44041E7029F596D90071556B /* WebViewViewControllerDelegate.swift in Sources */,
 				44917C312AE1B2900032C7BC /* CastomActivityIndicator.swift in Sources */,
 				4456D2E12A3DE44900D1A792 /* Profile.swift in Sources */,
+				447DA1BA2AE8DC3C001A7057 /* WebViewViewControllerProtocol.swift in Sources */,
 				447A76F12A2E6C8900CBC69B /* URLRequest + Extentions.swift in Sources */,
 				44D4FBF529AD168D008048B9 /* SceneDelegate.swift in Sources */,
 				44041E6A29F502D00071556B /* AuthViewController.swift in Sources */,
