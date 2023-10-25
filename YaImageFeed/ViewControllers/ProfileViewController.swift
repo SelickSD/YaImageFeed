@@ -13,6 +13,7 @@ final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    private let alertPresenter = AlertPresenter()
 
     private lazy var profileView: UIImageView = {
         let view = UIImageView()
@@ -65,7 +66,7 @@ final class ProfileViewController: UIViewController {
 
         profileImageServiceObserver = NotificationCenter.default
             .addObserver(
-                forName: ProfileImageService.DidChangeNotification,
+                forName: ProfileImageService.didChangeNotification,
                 object: nil,
                 queue: .main
             ) { [weak self] _ in
@@ -78,6 +79,11 @@ final class ProfileViewController: UIViewController {
             updateProfileDetails(profile: profile)
         }
         setupView()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 
     private func updateProfileDetails(profile: Profile) {
@@ -123,9 +129,15 @@ final class ProfileViewController: UIViewController {
             exitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
+    
     @objc private func didTapExitButton() {
 
-        print(#function)
-
+        let alert: [UIAlertAction] = [
+            UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
+                OAuth2TokenStorage.clean()
+                self?.present(SplashViewController(), animated: true, completion: nil) }),
+            UIAlertAction(title: "Нет", style: .default, handler: { _ in })
+        ]
+        alertPresenter.showAlert(viewController: self, title: "Уверены что хотите выйти?", message: "Остановитесь!", alertAction: alert)
     }
 }

@@ -42,6 +42,7 @@ class SplashViewController: UIViewController {
     private func switchToAuthViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else { return }
+
         authViewController.delegate = self
         authViewController.modalPresentationStyle = .fullScreen
         present(authViewController, animated: true, completion: nil)
@@ -49,6 +50,7 @@ class SplashViewController: UIViewController {
 
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+
         let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
         window.rootViewController = tabBarController
     }
@@ -69,6 +71,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
+
             UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
         }
@@ -77,14 +80,17 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchOAuthToken(_ code: String) {
         oauth2Service.fetchOAuthToken(code) { [weak self] result in
             guard let self = self else { return }
+
             switch result {
             case .success:
                 self.fetchProfile()
+
             case .failure:
                 UIBlockingProgressHUD.dismiss()
+                let alert = [UIAlertAction(title: "ОК", style: .default)]
                 alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
                                          message: "Не удалось войти в систему",
-                                         buttonText: "ОК", completion: {_ in })
+                                         alertAction: alert)
                 break
             }
         }
@@ -93,14 +99,17 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchProfile() {
         profileService.fetchProfile() { [weak self] result in
             guard let self = self else { return }
+
             switch result {
             case .success(let profile):
                 self.fetchProfileImage(username: profile.username)
+
             case .failure:
                 UIBlockingProgressHUD.dismiss()
+                let alert = [UIAlertAction(title: "Не удалось войти в систему", style: .default)]
                 alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
                                          message: "Не удалось войти в систему",
-                                         buttonText: "ОК", completion: {_ in })
+                                         alertAction: alert)
                 break
             }
         }
@@ -109,14 +118,18 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchProfileImage(username: String) {
         profileImageService.fetchProfileImageURL(username: username) { [weak self] result in
             guard let self = self else { return }
+
             UIBlockingProgressHUD.dismiss()
+
             switch result {
             case .success:
                 self.switchToTabBarController()
+                
             case .failure:
+                let alert = [UIAlertAction(title: "ОК", style: .default)]
                 alertPresenter.showAlert(viewController: self, title: "Что-то пошло не так",
                                          message: "Не удалось войти в систему",
-                                         buttonText: "ОК", completion: {_ in })
+                                         alertAction: alert)
                 break
             }
         }

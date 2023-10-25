@@ -36,12 +36,12 @@ final class WebViewViewController: UIViewController {
         webView.load(request)
 
         estimatedProgressObservation = webView.observe(
-                    \.estimatedProgress,
-                    options: [],
-                    changeHandler: { [weak self] _, _ in
-                        guard let self = self else { return }
-                        self.updateProgress()
-                    })
+            \.estimatedProgress,
+             options: [],
+             changeHandler: { [weak self] _, _ in
+                 guard let self = self else { return }
+                 self.updateProgress()
+             })
     }
 
     @IBAction private func didTapBackButton(_ sender: Any) {
@@ -61,14 +61,14 @@ extension WebViewViewController: WKNavigationDelegate {
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
-         if let code = code(from: navigationAction) {
+        if let code = code(from: navigationAction) {
 
-             delegate?.webViewViewController(self, didAuthenticateWithCode: code)
+            delegate?.webViewViewController(self, didAuthenticateWithCode: code)
 
-                decisionHandler(.cancel)
-          } else {
-                decisionHandler(.allow)
-            }
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
     }
 
     private func code(from navigationAction: WKNavigationAction) -> String? {
