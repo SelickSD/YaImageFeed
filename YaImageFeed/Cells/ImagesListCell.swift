@@ -16,6 +16,16 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet var dataLabel: UILabel!
     @IBOutlet var cellImage: UIImageView!
 
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        cellImage.layer.cornerRadius = 16
+        cellImage.clipsToBounds = true
+        cellImage.image = UIImage(named: "Stub")
+
+    }
+
     @IBAction func didTapLikeButton(_ sender: Any) {
         delegate?.imageListCellDidTapLike(self)
     }

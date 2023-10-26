@@ -129,9 +129,9 @@ extension ImagesListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        imageListCell.cellImage.layer.cornerRadius = 16
-        imageListCell.cellImage.image = UIImage(named: "Stub")
-        imageListCell.cellImage.clipsToBounds = true
+//        imageListCell.cellImage.layer.cornerRadius = 16
+//        imageListCell.cellImage.image = UIImage(named: "Stub")
+//        imageListCell.cellImage.clipsToBounds = true
         
         configCell(for: imageListCell, with: indexPath)
         return imageListCell
