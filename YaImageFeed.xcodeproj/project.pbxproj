@@ -165,15 +165,10 @@
 		44041E6E29F596C00071556B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				44041E6F29F596D90071556B /* WebViewViewControllerDelegate.swift */,
 				4414C5352A063B820021BDEC /* OAuth2Service.swift */,
-				447A76EE2A2E582700CBC69B /* AuthViewControllerDelegate.swift */,
 				4456D2DA2A38D99200D1A792 /* UIBlockingProgressHUD.swift */,
-				4456D2DC2A3DDAF600D1A792 /* ProfileService.swift */,
 				4456D2E22A3F3F0A00D1A792 /* ProfileImageService.swift */,
 				44DA6DAA2A51BA04001634FB /* AlertPresenter.swift */,
-				44917C132AD414320032C7BC /* ImagesListService.swift */,
-				44917C2A2ADC4BEF0032C7BC /* ImagesListCellDelegate.swift */,
 				44917C302AE1B2900032C7BC /* CastomActivityIndicator.swift */,
 				447DA1C12AE979AC001A7057 /* AuthHelper.swift */,
 			);
@@ -209,11 +204,11 @@
 		447A76F62A2E6EC800CBC69B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				447DA1E32AEB1121001A7057 /* ImageListView */,
+				447DA1E22AEB10F4001A7057 /* ProfileView */,
 				447DA1B72AE8DB46001A7057 /* AuthAndWebView */,
 				447A76EC2A2E087C00CBC69B /* SplashViewController.swift */,
 				44041E2429E5D8D60071556B /* SingleImageViewController.swift */,
-				4413B3DC29DB365D00123336 /* ProfileViewController.swift */,
-				44D4FBF629AD168D008048B9 /* ImagesListViewController.swift */,
 				44D43DDE2A54721C00AA7EA0 /* TabBarController.swift */,
 			);
 			path = ViewControllers;
@@ -249,6 +244,34 @@
 			path = YaImageFeedTests;
 			sourceTree = "<group>";
 		};
+		447DA1E22AEB10F4001A7057 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				4413B3DC29DB365D00123336 /* ProfileViewController.swift */,
+				4456D2DC2A3DDAF600D1A792 /* ProfileService.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
+		447DA1E32AEB1121001A7057 /* ImageListView */ = {
+			isa = PBXGroup;
+			children = (
+				44D4FBF629AD168D008048B9 /* ImagesListViewController.swift */,
+				44917C132AD414320032C7BC /* ImagesListService.swift */,
+			);
+			path = ImageListView;
+			sourceTree = "<group>";
+		};
+		447DA1E42AEB1175001A7057 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				44041E6F29F596D90071556B /* WebViewViewControllerDelegate.swift */,
+				447A76EE2A2E582700CBC69B /* AuthViewControllerDelegate.swift */,
+				44917C2A2ADC4BEF0032C7BC /* ImagesListCellDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		44D4FBE629AD168D008048B9 = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +293,7 @@
 		44D4FBF129AD168D008048B9 /* YaImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				447DA1E42AEB1175001A7057 /* Delegates */,
 				447DA1B82AE8DC0C001A7057 /* Protocols */,
 				447A76F62A2E6EC800CBC69B /* ViewControllers */,
 				4414C5322A0639670021BDEC /* Models */,

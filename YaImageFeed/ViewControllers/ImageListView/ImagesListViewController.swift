@@ -128,10 +128,6 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-
-//        imageListCell.cellImage.layer.cornerRadius = 16
-//        imageListCell.cellImage.image = UIImage(named: "Stub")
-//        imageListCell.cellImage.clipsToBounds = true
         
         configCell(for: imageListCell, with: indexPath)
         return imageListCell
