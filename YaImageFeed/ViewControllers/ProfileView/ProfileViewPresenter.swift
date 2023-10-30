@@ -29,6 +29,10 @@ class ProfileViewPresenter: ProfileViewPresenterProtocol {
         }
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func viewDidLoad() {
 
         guard let image = image.image else {return}
