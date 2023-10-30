@@ -111,10 +111,13 @@ class ProfileView: UIView {
         guard let viewController = self.viewController else {return}
         
         let alert: [UIAlertAction] = [
-            UIAlertAction(title: "Да", style: .default, handler: { _ in
+            UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
+                guard self != nil else {return}
                 OAuth2TokenStorage.clean()
                 viewController.present(SplashViewController(), animated: true, completion: nil) }),
-            UIAlertAction(title: "Нет", style: .default, handler: { _ in })
+            UIAlertAction(title: "Нет", style: .default, handler: { [weak self] _ in
+                guard self != nil else {return}
+            })
         ]
         alertPresenter.showAlert(viewController: viewController, title: "Уверены что хотите выйти?", message: "Остановитесь!", alertAction: alert)
     }
