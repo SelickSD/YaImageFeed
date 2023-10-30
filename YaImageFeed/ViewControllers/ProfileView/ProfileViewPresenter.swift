@@ -13,10 +13,33 @@ class ProfileViewPresenter: ProfileViewPresenterProtocol {
     private let profileImageService = ProfileImageService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared
+    private let image: UIImageView
+
+    init() {
+        image = UIImageView()
+
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self
+            else { return }
+            loadImage()
+        }
+    }
 
     func viewDidLoad() {
+
+        guard let image = image.image else {return}
+        view?.updateAvatar(image: image)
+
+        guard let profile = profileService.profile else {return}
+        view?.updateProfile(profile: profile)
+    }
+
+    private func loadImage() {
         guard let profileImageURL = ProfileImageService.shared.profileImageURL else { return }
-        let image = UIImageView()
         image.kf.setImage(with: profileImageURL,
                           placeholder: nil,
                           options: nil,
@@ -24,13 +47,10 @@ class ProfileViewPresenter: ProfileViewPresenterProtocol {
             guard self != nil else { return }
             switch result {
             case .success(let value):
-                self?.view?.updateAvatar(image: value.image)
+                self?.image.image = value.image
             case .failure(let error):
                 print("Фотография не загружена: \(error)")
             }
         })
-
-        guard let profile = profileService.profile else {return}
-        view?.updateProfile(profile: profile)
     }
 }
