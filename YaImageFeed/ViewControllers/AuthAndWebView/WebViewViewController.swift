@@ -11,7 +11,6 @@ import WebKit
 final class WebViewViewController: UIViewController & WebViewViewControllerProtocol {
 
     var presenter: WebViewPresenterProtocol?
-
     weak var delegate: WebViewViewControllerDelegate?
     private var estimatedProgressObservation: NSKeyValueObservation?
 

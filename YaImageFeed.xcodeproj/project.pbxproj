@@ -39,6 +39,7 @@
 		447DA1CA2AE97EEA001A7057 /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DA1C92AE97EEA001A7057 /* WebViewTests.swift */; };
 		447DA1D12AE98009001A7057 /* WebViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DA1D02AE98009001A7057 /* WebViewPresenterSpy.swift */; };
 		447DA1D32AE981FE001A7057 /* WebViewViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DA1D22AE981FE001A7057 /* WebViewViewControllerSpy.swift */; };
+		447DA1E62AEF6B9C001A7057 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DA1E52AEF6B9C001A7057 /* ProfileView.swift */; };
 		44917C142AD414320032C7BC /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44917C132AD414320032C7BC /* ImagesListService.swift */; };
 		44917C162AD414CA0032C7BC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44917C152AD414CA0032C7BC /* Photo.swift */; };
 		44917C182AD43E0B0032C7BC /* PhotoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44917C172AD43E0B0032C7BC /* PhotoResult.swift */; };
@@ -102,6 +103,7 @@
 		447DA1C92AE97EEA001A7057 /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		447DA1D02AE98009001A7057 /* WebViewPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenterSpy.swift; sourceTree = "<group>"; };
 		447DA1D22AE981FE001A7057 /* WebViewViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerSpy.swift; sourceTree = "<group>"; };
+		447DA1E52AEF6B9C001A7057 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		44917C132AD414320032C7BC /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
 		44917C152AD414CA0032C7BC /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		44917C172AD43E0B0032C7BC /* PhotoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResult.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			children = (
 				4413B3DC29DB365D00123336 /* ProfileViewController.swift */,
 				4456D2DC2A3DDAF600D1A792 /* ProfileService.swift */,
+				447DA1E52AEF6B9C001A7057 /* ProfileView.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				447A76EF2A2E582700CBC69B /* AuthViewControllerDelegate.swift in Sources */,
 				44D43DDF2A54721C00AA7EA0 /* TabBarController.swift in Sources */,
 				44041E6829F3B18A0071556B /* AuthConfiguration.swift in Sources */,
+				447DA1E62AEF6B9C001A7057 /* ProfileView.swift in Sources */,
 				4456D2DD2A3DDAF600D1A792 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
