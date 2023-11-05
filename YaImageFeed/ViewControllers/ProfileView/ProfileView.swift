@@ -55,6 +55,7 @@ class ProfileView: UIView {
         button.setImage(UIImage(named: "ExitButton"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(didTapExitButton), for: .touchUpInside)
+        button.accessibilityIdentifier = "LogoutButtonId"
         return button
     }()
     

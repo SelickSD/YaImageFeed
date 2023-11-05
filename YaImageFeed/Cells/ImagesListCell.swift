@@ -19,6 +19,8 @@ public final class ImagesListCell: UITableViewCell {
     public override func awakeFromNib() {
         super.awakeFromNib()
 
+        likeButton.accessibilityIdentifier = "likeButtonToTap"
+
         cellImage.layer.cornerRadius = 16
         cellImage.clipsToBounds = true
         cellImage.image = UIImage(named: "Stub")

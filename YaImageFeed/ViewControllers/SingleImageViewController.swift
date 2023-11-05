@@ -34,6 +34,7 @@ final class SingleImageViewController: UIViewController {
         loadImage()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
+        backwardButton.accessibilityIdentifier = "navBackButton"
     }
 
     @IBAction private func didTapBackwardButton(_ sender: Any) {
