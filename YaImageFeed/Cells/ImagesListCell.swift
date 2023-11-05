@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ImagesListCell: UITableViewCell {
+public final class ImagesListCell: UITableViewCell {
 
     static let reuseIdentifier = "ImagesListCell"
     weak var delegate: ImagesListCellDelegate?
@@ -16,7 +16,7 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet var dataLabel: UILabel!
     @IBOutlet var cellImage: UIImageView!
 
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
 
         cellImage.layer.cornerRadius = 16
