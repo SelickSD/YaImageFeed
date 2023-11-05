@@ -58,3 +58,10 @@ class ProfileViewPresenter: ProfileViewPresenterProtocol {
         })
     }
 }
+
+// MARK: extension for Tests
+extension ProfileViewPresenter {
+    func configureSelf() {
+        self.image.image = UIImage(named: "Stub")
+    }
+}
