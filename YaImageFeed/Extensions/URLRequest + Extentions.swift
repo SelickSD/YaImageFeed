@@ -12,7 +12,7 @@ extension URLRequest {
     static func makeHTTPRequest(
         path: String,
         httpMethod: String,
-        baseURL: URL = DefaultBaseURL,
+        baseURL: URL = AuthConfiguration.standard.defaultBaseURL,
         needToken: Bool = false,
         parameters:[String:String]? = nil
     ) -> URLRequest {

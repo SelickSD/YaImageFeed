@@ -7,14 +7,6 @@
 
 import Foundation
 
-let AccessKey: String = "mdiyQwfFaXgj71MPg000lIJGuSeT5yylpY-AhT9qNGg"
-let SecretKey: String = "m5EhcUJqHPusWytAw73XhvwV5HzSb8skBzyTDTFzWfs"
-let RedirectURI: String = "urn:ietf:wg:oauth:2.0:oob"
-let AccessScope: String = "public+read_user+write_likes"
-
-let DefaultBaseURL = URL(string: "https://api.unsplash.com")!
-let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-
 struct AuthConfiguration {
     let accessKey: String
     let secretKey: String
@@ -33,12 +25,12 @@ struct AuthConfiguration {
     }
 
     static var standard: AuthConfiguration {
-            return AuthConfiguration(accessKey: AccessKey,
-                                     secretKey: SecretKey,
-                                     redirectURI: RedirectURI,
-                                     accessScope: AccessScope,
-                                     authURLString: UnsplashAuthorizeURLString,
-                                     defaultBaseURL: DefaultBaseURL)
+            return AuthConfiguration(accessKey: "mdiyQwfFaXgj71MPg000lIJGuSeT5yylpY-AhT9qNGg",
+                                     secretKey: "m5EhcUJqHPusWytAw73XhvwV5HzSb8skBzyTDTFzWfs",
+                                     redirectURI: "urn:ietf:wg:oauth:2.0:oob",
+                                     accessScope: "public+read_user+write_likes",
+                                     authURLString: "https://unsplash.com/oauth/authorize",
+                                     defaultBaseURL: URL(string: "https://api.unsplash.com")!)
         }
 }
 
