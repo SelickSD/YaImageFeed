@@ -24,13 +24,11 @@ struct AuthConfiguration {
         self.authURLString = authURLString
     }
 
-    static var standard: AuthConfiguration {
-            return AuthConfiguration(accessKey: "mdiyQwfFaXgj71MPg000lIJGuSeT5yylpY-AhT9qNGg",
-                                     secretKey: "m5EhcUJqHPusWytAw73XhvwV5HzSb8skBzyTDTFzWfs",
-                                     redirectURI: "urn:ietf:wg:oauth:2.0:oob",
-                                     accessScope: "public+read_user+write_likes",
-                                     authURLString: "https://unsplash.com/oauth/authorize",
-                                     defaultBaseURL: URL(string: "https://api.unsplash.com")!)
-        }
+    static let standard = AuthConfiguration(accessKey: "mdiyQwfFaXgj71MPg000lIJGuSeT5yylpY-AhT9qNGg",
+                                            secretKey: "m5EhcUJqHPusWytAw73XhvwV5HzSb8skBzyTDTFzWfs",
+                                            redirectURI: "urn:ietf:wg:oauth:2.0:oob",
+                                            accessScope: "public+read_user+write_likes",
+                                            authURLString: "https://unsplash.com/oauth/authorize",
+                                            defaultBaseURL: URL(string: "https://api.unsplash.com")!)
 }
 

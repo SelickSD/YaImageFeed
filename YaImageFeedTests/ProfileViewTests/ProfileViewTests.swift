@@ -32,8 +32,6 @@ final class ProfileViewTests: XCTestCase {
         presenter.view = view
         view.presenter = presenter
 
-        
-
         //when
         presenter.configureSelf()
         presenter.viewDidLoad()

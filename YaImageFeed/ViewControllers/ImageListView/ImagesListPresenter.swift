@@ -90,13 +90,13 @@ class ImagesListPresenter: ImagesListPresenterProtocol {
         photos.count
     }
 
-    func heightForRowAt(index: Int, imageInsets: UIEdgeInsets, imageViewWidth: CGFloat) -> CGFloat {
+    func heightForRowAt(index: Int, top: CGFloat, bottom: CGFloat, imageViewWidth: CGFloat) -> CGFloat {
         guard index < imagesListService.photos.count else { return CGFloat() }
 
         let image = photos[index]
         let imageWidth = image.size.width
         let scale = imageViewWidth / imageWidth
-        let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
+        let cellHeight = image.size.height * scale + top + bottom
         return cellHeight
     }
 

@@ -5,7 +5,7 @@
 //  Created by Сергей Денисенко on 30.10.2023.
 //
 
-import UIKit
+import Foundation
 
 public protocol ImagesListViewControlledProtocol: AnyObject {
     var presenter: ImagesListPresenterProtocol? { get set }

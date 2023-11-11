@@ -94,7 +94,10 @@ extension ImagesListViewController: UITableViewDataSource {
 
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
-        let cellHeight = presenter.heightForRowAt(index: indexPath.row, imageInsets: imageInsets, imageViewWidth: imageViewWidth)
+        let cellHeight = presenter.heightForRowAt(index: indexPath.row,
+                                                  top: imageInsets.top,
+                                                  bottom: imageInsets.bottom,
+                                                  imageViewWidth: imageViewWidth)
         return cellHeight
     }
     
