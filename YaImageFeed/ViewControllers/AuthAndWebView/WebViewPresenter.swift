@@ -11,6 +11,7 @@ final class WebViewPresenter: WebViewPresenterProtocol {
 
     var authHelper: AuthHelperProtocol
     weak var view: WebViewViewControllerProtocol?
+    weak var delegate: WebViewViewControllerDelegate?
 
     init(authHelper: AuthHelperProtocol) {
         self.authHelper = authHelper
@@ -36,5 +37,17 @@ final class WebViewPresenter: WebViewPresenterProtocol {
 
     func code(from url: URL) -> String? {
         authHelper.code(from: url)
+    }
+
+    func didTapBackButton(_ vc: WebViewViewControllerProtocol) {
+        guard let viewController = vc as? WebViewViewController else {return}
+        delegate?.webViewViewControllerDidCancel(viewController)
+    }
+
+    func webViewViewController(_ vc: WebViewViewControllerProtocol, didAuthenticateWithCode code: String) {
+
+        guard let viewController = vc as? WebViewViewController else { return }
+
+        delegate?.webViewViewController(viewController, didAuthenticateWithCode: code)
     }
 }

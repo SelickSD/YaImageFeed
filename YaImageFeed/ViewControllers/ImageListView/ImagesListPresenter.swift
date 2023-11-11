@@ -8,7 +8,7 @@
 import UIKit
 
 class ImagesListPresenter: ImagesListPresenterProtocol {
-    var view: ImagesListViewControlledProtocol?
+    weak var view: ImagesListViewControlledProtocol?
 
     private var imagesListServiceObserver: NSObjectProtocol?
     private let imagesListService = ImagesListService.shared

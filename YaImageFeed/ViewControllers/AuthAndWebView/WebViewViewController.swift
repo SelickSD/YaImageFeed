@@ -11,7 +11,6 @@ import WebKit
 final class WebViewViewController: UIViewController & WebViewViewControllerProtocol {
 
     var presenter: WebViewPresenterProtocol?
-    weak var delegate: WebViewViewControllerDelegate?
     private var estimatedProgressObservation: NSKeyValueObservation?
 
     @IBOutlet private var webView: WKWebView!
@@ -26,20 +25,25 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
         presenter?.viewDidLoad()
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == #keyPath(WKWebView.estimatedProgress) {
-            presenter?.didUpdateProgressValue(webView.estimatedProgress)
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+    override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?,
+        change: [NSKeyValueChangeKey : Any]?,
+        context: UnsafeMutableRawPointer?) {
+
+            if keyPath == #keyPath(WKWebView.estimatedProgress) {
+                presenter?.didUpdateProgressValue(webView.estimatedProgress)
+            } else {
+                super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            }
         }
-    } 
 
     func load(request: URLRequest) {
         webView.load(request)
     }
 
     @IBAction private func didTapBackButton(_ sender: Any) {
-        delegate?.webViewViewControllerDidCancel(self)
+        presenter?.didTapBackButton(self)
     }
 
     func setProgressValue(_ newValue: Float) {
@@ -48,7 +52,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
 
     func setProgressHidden(_ isHidden: Bool) {
         progressView.isHidden = isHidden
-    } 
+    }
 }
 
 //MARK: - WKNavigationDelegate
@@ -60,7 +64,7 @@ extension WebViewViewController: WKNavigationDelegate {
     ) {
         if let code = code(from: navigationAction) {
 
-            delegate?.webViewViewController(self, didAuthenticateWithCode: code)
+            presenter?.webViewViewController(self, didAuthenticateWithCode: code)
 
             decisionHandler(.cancel)
         } else {

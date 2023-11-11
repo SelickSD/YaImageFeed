@@ -76,6 +76,9 @@ class ProfileView: UIView {
     }
     
     private func setupView() {
+
+        self.backgroundColor = .ypBlack
+
         self.addSubview(profileView)
         self.addSubview(nameLabel)
         self.addSubview(loginLabel)
