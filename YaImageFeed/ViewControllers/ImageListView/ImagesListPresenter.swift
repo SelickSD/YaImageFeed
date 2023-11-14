@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ImagesListPresenter: ImagesListPresenterProtocol {
     weak var view: ImagesListViewControlledProtocol?
@@ -58,22 +59,31 @@ class ImagesListPresenter: ImagesListPresenterProtocol {
         guard let urlToResized = URL(string: photos[index].thumbImageURL) else { return }
         let url = URL.resizedImageURL(urlToResized: urlToResized)
 
+        let processor = RoundCornerImageProcessor(cornerRadius: 16)
+        let options: KingfisherOptionsInfo = [
+            .backgroundDecode,
+            .processor(processor)
+        ]
+
         cell.cellImage.kf.indicatorType = .custom(indicator: CustomActivityIndicator())
-        cell.cellImage.kf.setImage(
-            with:url,
-            placeholder: UIImage(named: "Stub"),
-            options: nil,
-            completionHandler:{ [weak self] result in
-                guard self != nil else { return }
-                switch result {
-                case .success(let value):
-                    cell.cellImage.image = value.image
-                    cell.cellImage.contentMode = .scaleAspectFill
-                case .failure(let error):
-                    print("Ошибка: \(error)")
+        DispatchQueue.main.async {
+            cell.cellImage.kf.setImage(
+                with:url,
+                placeholder: UIImage(named: "Stub"),
+                options: options,
+                completionHandler:{ [weak self] result in
+                    guard self != nil else { return }
+                    switch result {
+                    case .success(let value):
+                            cell.cellImage.image = value.image
+                            cell.cellImage.contentMode = .scaleAspectFill
+                            print(value.cacheType)
+                    case .failure(let error):
+                        print("Ошибка: \(error)")
+                    }
                 }
-            }
-        )
+            )
+        }
         cell.dataLabel.text = dateFormatter.string(from: photos[index].createdAt ?? Date())
         cell.likeButton.setImage(UIImage(named: photos[index].isLiked ? "FavoritesActive" : "FavoritesNoActive"), for: .normal)
     }

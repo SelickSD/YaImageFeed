@@ -67,7 +67,7 @@ final class YaImageFeedUITests: XCTestCase {
 
         cell.tap()
 
-        sleep(25)
+        sleep(30)
 
         let image = app.scrollViews.images.element(boundBy: 0)
         // Zoom in
