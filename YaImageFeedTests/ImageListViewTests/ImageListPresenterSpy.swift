@@ -37,15 +37,15 @@ return ""
         return 0
     }
 
-    func heightForRowAt(index: Int, imageInsets: UIEdgeInsets, imageViewWidth: CGFloat) -> CGFloat {
-        return CGFloat()
-    }
-
     func checkNextPhoto(index: Int) {
 
     }
 
     func changeLike(index: Int) {
 
+    }
+
+    func heightForRowAt(index: Int, top: CGFloat, bottom: CGFloat, imageViewWidth: CGFloat) -> CGFloat {
+        return CGFloat()
     }
 }
