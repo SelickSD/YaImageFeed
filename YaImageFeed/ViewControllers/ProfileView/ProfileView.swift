@@ -1,21 +1,18 @@
 //
-//  ProfileViewController.swift
+//  ProfileView.swift
 //  YaImageFeed
 //
-//  Created by Сергей Денисенко on 03.04.2023.
+//  Created by Сергей Денисенко on 30.10.2023.
 //
 
 import UIKit
-import Kingfisher
 
-final class ProfileViewController: UIViewController {
-
-    private let profileService = ProfileService.shared
-    private let profileImageService = ProfileImageService.shared
-    private var profileImageServiceObserver: NSObjectProtocol?
+class ProfileView: UIView {
+    
     private let alertPresenter = AlertPresenter()
-
-    private lazy var profileView: UIImageView = {
+    weak var viewController: ProfileViewController?
+    
+    lazy var profileView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 35
@@ -23,7 +20,7 @@ final class ProfileViewController: UIViewController {
         view.image = UIImage(named: "PersonCircle")
         return view
     }()
-
+    
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +29,7 @@ final class ProfileViewController: UIViewController {
         label.textColor = .ypWhite
         return label
     }()
-
+    
     private lazy var loginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +38,7 @@ final class ProfileViewController: UIViewController {
         label.textColor = .ypGray
         return label
     }()
-
+    
     private lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -51,93 +48,81 @@ final class ProfileViewController: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-
+    
     private lazy var exitButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "ExitButton"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(didTapExitButton), for: .touchUpInside)
+        button.accessibilityIdentifier = "LogoutButtonId"
         return button
     }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ProfileImageService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
-        updateAvatar()
-
-        if let profile = profileService.profile {
-            updateProfileDetails(profile: profile)
-        }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
         setupView()
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
-    private func updateProfileDetails(profile: Profile) {
+    
+    func updateProfileView(profile: Profile) {
         nameLabel.text = profile.name
         loginLabel.text = profile.loginName
         statusLabel.text = profile.bio
     }
-
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.profileImageURL else { return }
-        profileView.kf.setImage(with: profileImageURL)
-    }
-
+    
     private func setupView() {
-        view.addSubview(profileView)
-        view.addSubview(nameLabel)
-        view.addSubview(loginLabel)
-        view.addSubview(statusLabel)
-        view.addSubview(exitButton)
 
+        self.backgroundColor = .ypBlack
+
+        self.addSubview(profileView)
+        self.addSubview(nameLabel)
+        self.addSubview(loginLabel)
+        self.addSubview(statusLabel)
+        self.addSubview(exitButton)
+        
         NSLayoutConstraint.activate([
             profileView.heightAnchor.constraint(equalToConstant: 70),
             profileView.widthAnchor.constraint(equalToConstant: 70),
-            profileView.topAnchor.constraint(equalTo: view.topAnchor, constant: 76),
-            profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            profileView.topAnchor.constraint(equalTo: self.topAnchor, constant: 76),
+            profileView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            
+            nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             nameLabel.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 8),
             nameLabel.leadingAnchor.constraint(equalTo: profileView.leadingAnchor),
-
+            
             loginLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
             loginLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             loginLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-
+            
             statusLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8),
             statusLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             statusLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-
+            
             exitButton.heightAnchor.constraint(equalToConstant: 24),
             exitButton.widthAnchor.constraint(equalToConstant: 24),
-            exitButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 99),
-            exitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+            exitButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 99),
+            exitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24)
         ])
     }
     
     @objc private func didTapExitButton() {
-
+        
+        guard let viewController = self.viewController else {return}
+        
         let alert: [UIAlertAction] = [
             UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
+                guard self != nil else {return}
                 OAuth2TokenStorage.clean()
-                self?.present(SplashViewController(), animated: true, completion: nil) }),
-            UIAlertAction(title: "Нет", style: .default, handler: { _ in })
+                viewController.present(SplashViewController(), animated: true, completion: nil) }),
+            UIAlertAction(title: "Нет", style: .default, handler: { [weak self] _ in
+                guard self != nil else {return}
+            })
         ]
-        alertPresenter.showAlert(viewController: self, title: "Уверены что хотите выйти?", message: "Остановитесь!", alertAction: alert)
+        alertPresenter.showAlert(viewController: viewController, title: "Уверены что хотите выйти?", message: "Остановитесь!", alertAction: alert)
     }
 }
